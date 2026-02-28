@@ -9,146 +9,319 @@
     <link rel="icon" type="image/webp" href="RPL+Entertainment+(3).webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-page-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-page-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-page-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .gallery-page-item.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .gallery-page-item.wide {
+            grid-column: span 2;
+        }
+
+        .gallery-page-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s var(--ease);
+        }
+
+        .gallery-page-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-page-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: var(--space-md);
+            color: var(--white);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .gallery-page-item:hover .gallery-page-overlay {
+            opacity: 1;
+        }
+
+        .gallery-page-category {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .gallery-page-overlay h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .gallery-page-date {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .social-cta {
+            padding: var(--space-xl) var(--space-md);
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .social-cta h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 500;
+            color: var(--green-dark);
+            margin-bottom: var(--space-sm);
+        }
+
+        .social-cta p {
+            color: var(--gray);
+            margin-bottom: var(--space-md);
+        }
+
+        .testimonials-section {
+            padding: var(--space-2xl) var(--space-md);
+            background: var(--black);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--black-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: var(--space-lg);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: var(--space-md);
+        }
+
+        .testimonial-stars svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--gold);
+        }
+
+        .testimonial-card p {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+
+        .testimonial-author strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .testimonial-author span {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-page-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery-page-item.large {
+                grid-column: span 2;
+                grid-row: span 1;
+                aspect-ratio: 16/9;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-page-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-page-item.large,
+            .gallery-page-item.wide,
+            .gallery-page-item.tall {
+                grid-column: span 1;
+                grid-row: span 1;
+                aspect-ratio: 4/3;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Custom Cursor -->
-    <div class="cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-        <div class="cursor-text">View</div>
+    <div class="cursor" id="cursor">
+        <div class="cursor-ball"></div>
+        <div class="cursor-text"></div>
     </div>
 
-    <!-- Grain Overlay -->
-    <div class="grain"></div>
+    <!-- Header -->
+    <header class="header scrolled" id="header">
+        <a href="index.html" class="logo">
+            <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
+        </a>
 
-    <!-- Navigation -->
-    <nav class="nav scrolled">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo" data-magnetic>
-                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
-            </a>
-            <div class="nav-menu">
-                <a href="index.html" class="nav-link" data-magnetic><span>Home</span></a>
-                <a href="about.html" class="nav-link" data-magnetic><span>About</span></a>
-                <a href="services.html" class="nav-link" data-magnetic><span>Services</span></a>
-                <a href="gallery.html" class="nav-link active" data-magnetic><span>Gallery</span></a>
-                <a href="contact.html" class="nav-link nav-cta" data-magnetic>
-                    <span>Book Now</span>
-                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <button class="nav-toggle" data-magnetic aria-label="Menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+        <nav class="nav-main">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="gallery.html" class="nav-link active">Gallery</a>
+            <a href="contact.html" class="nav-link cta">Book Now</a>
+        </nav>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <div class="mobile-menu-inner">
-            <div class="mobile-menu-links">
-                <a href="index.html" class="mobile-link">Home</a>
-                <a href="about.html" class="mobile-link">About</a>
-                <a href="services.html" class="mobile-link">Services</a>
-                <a href="gallery.html" class="mobile-link">Gallery</a>
-                <a href="contact.html" class="mobile-link">Contact</a>
-            </div>
-            <div class="mobile-menu-footer">
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-bg"></div>
+        <nav class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="mobile-menu-footer">
+            <div class="mobile-social">
                 <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
                 <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
             </div>
+            <span class="mobile-tagline">Est. 2020 • Georgia</span>
         </div>
     </div>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <span class="section-label">Our Work</span>
-            <h1 class="page-title">Moments We've<br>Brought to Life</h1>
-        </div>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <span class="section-tag">Our Work</span>
+        <h1>Moments We've<br><em>Brought to Life</em></h1>
     </section>
 
     <!-- Gallery Grid -->
     <section class="gallery-section">
-        <div class="container">
-            <div class="gallery-grid">
-                <div class="gallery-item large" data-cursor-text="View">
+        <div class="container" style="max-width: 1400px; margin: 0 auto;">
+            <div class="gallery-page-grid">
+                <div class="gallery-page-item large" data-cursor="View">
                     <img src="hero-party.jpg" alt="Wedding celebration">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Wedding</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Wedding</span>
                         <h3>Atlanta Botanical Garden</h3>
-                        <span class="gallery-date">2024</span>
+                        <span class="gallery-page-date">2024</span>
                     </div>
                 </div>
 
-                <div class="gallery-item" data-cursor-text="View">
+                <div class="gallery-page-item" data-cursor="View">
                     <img src="event-1.jpg" alt="Reception event">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Reception</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Reception</span>
                         <h3>Savannah Historic</h3>
-                        <span class="gallery-date">2024</span>
+                        <span class="gallery-page-date">2024</span>
                     </div>
                 </div>
 
-                <div class="gallery-item" data-cursor-text="View">
+                <div class="gallery-page-item" data-cursor="View">
                     <img src="event-2.jpg" alt="Corporate gala">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Corporate</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Corporate</span>
                         <h3>Tech Summit</h3>
-                        <span class="gallery-date">2024</span>
+                        <span class="gallery-page-date">2024</span>
                     </div>
                 </div>
 
-                <div class="gallery-item" data-cursor-text="View">
+                <div class="gallery-page-item" data-cursor="View">
                     <img src="IMG_5365-Enhanced-NR.webp" alt="DJ Setup">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Setup</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Setup</span>
                         <h3>Premium Equipment</h3>
-                        <span class="gallery-date">2024</span>
+                        <span class="gallery-page-date">2024</span>
                     </div>
                 </div>
 
-                <div class="gallery-item tall" data-cursor-text="View">
+                <div class="gallery-page-item tall" data-cursor="View">
                     <img src="hero-party.jpg" alt="Dance floor">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Wedding</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Wedding</span>
                         <h3>Dance Floor Magic</h3>
-                        <span class="gallery-date">2024</span>
+                        <span class="gallery-page-date">2024</span>
                     </div>
                 </div>
 
-                <div class="gallery-item" data-cursor-text="View">
+                <div class="gallery-page-item" data-cursor="View">
                     <img src="event-1.jpg" alt="Lighting setup">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Lighting</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Lighting</span>
                         <h3>Venue Transform</h3>
-                        <span class="gallery-date">2024</span>
+                        <span class="gallery-page-date">2024</span>
                     </div>
                 </div>
 
-                <div class="gallery-item wide" data-cursor-text="View">
+                <div class="gallery-page-item wide" data-cursor="View">
                     <img src="event-2.jpg" alt="Full venue">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Wedding</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Wedding</span>
                         <h3>Grand Celebration</h3>
-                        <span class="gallery-date">2023</span>
+                        <span class="gallery-page-date">2023</span>
                     </div>
                 </div>
 
-                <div class="gallery-item" data-cursor-text="View">
+                <div class="gallery-page-item" data-cursor="View">
                     <img src="IMG_5365-Enhanced-NR.webp" alt="Sound check">
-                    <div class="gallery-overlay">
-                        <span class="gallery-category">Setup</span>
+                    <div class="gallery-page-overlay">
+                        <span class="gallery-page-category">Setup</span>
                         <h3>Sound Check</h3>
-                        <span class="gallery-date">2023</span>
+                        <span class="gallery-page-date">2023</span>
                     </div>
                 </div>
             </div>
@@ -157,72 +330,64 @@
 
     <!-- Social CTA -->
     <section class="social-cta">
-        <div class="container">
-            <div class="social-content">
-                <h2>See More of Our Work</h2>
-                <p>Follow us on Instagram for behind-the-scenes content and recent events.</p>
-                <a href="https://instagram.com/rplentertainment" class="btn-primary btn-large" target="_blank" data-magnetic>
-                    <span class="btn-text">Follow @rplentertainment</span>
-                    <span class="btn-icon">
-                        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-                    </span>
-                </a>
-            </div>
-        </div>
+        <h2>See More of Our Work</h2>
+        <p>Follow us on Instagram for behind-the-scenes content and recent events.</p>
+        <a href="https://instagram.com/rplentertainment" class="btn-outline dark" target="_blank">
+            <span class="btn-label">Follow @rplentertainment</span>
+            <span class="btn-arrow">→</span>
+        </a>
     </section>
 
     <!-- Testimonials -->
     <section class="testimonials-section">
-        <div class="container">
-            <div class="section-header centered">
-                <span class="section-label">Testimonials</span>
-                <h2 class="section-title">What Couples Say</h2>
+        <div style="text-align: center; margin-bottom: var(--space-xl);">
+            <span class="section-tag">Testimonials</span>
+            <h2 class="section-title">What Couples Say</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p>"RPL Entertainment exceeded every expectation. The dance floor was packed all night!"</p>
+                <div class="testimonial-author">
+                    <strong>Sarah & Michael</strong>
+                    <span>Atlanta, 2024</span>
+                </div>
             </div>
 
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p>"RPL Entertainment exceeded every expectation. The dance floor was packed all night!"</p>
-                    <div class="testimonial-author">
-                        <strong>Sarah & Michael</strong>
-                        <span>Atlanta, 2024</span>
-                    </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                 </div>
-
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p>"They truly understood our vision and brought it to life perfectly."</p>
-                    <div class="testimonial-author">
-                        <strong>Jessica & David</strong>
-                        <span>Savannah, 2024</span>
-                    </div>
+                <p>"They truly understood our vision and brought it to life perfectly."</p>
+                <div class="testimonial-author">
+                    <strong>Jessica & David</strong>
+                    <span>Savannah, 2024</span>
                 </div>
+            </div>
 
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p>"Professional, friendly, and the lighting transformed our venue completely."</p>
-                    <div class="testimonial-author">
-                        <strong>Emily & James</strong>
-                        <span>Augusta, 2024</span>
-                    </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <p>"Professional, friendly, and the lighting transformed our venue completely."</p>
+                <div class="testimonial-author">
+                    <strong>Emily & James</strong>
+                    <span>Augusta, 2024</span>
                 </div>
             </div>
         </div>
@@ -230,49 +395,58 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="container">
+        <div class="cta-inner">
             <div class="cta-content">
-                <h2>Let's Create Your Story</h2>
+                <h2>Let's Create <em>Your Story</em></h2>
                 <p>Your event could be our next masterpiece.</p>
-                <a href="contact.html" class="btn-primary btn-large" data-magnetic>
-                    <span class="btn-text">Book Your Date</span>
-                    <span class="btn-icon">
-                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </span>
+                <a href="contact.html" class="btn-primary light">
+                    <span class="btn-fill"></span>
+                    <span class="btn-label">Book Your Date</span>
                 </a>
+            </div>
+            <div class="cta-logo">
+                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
-                    <p>Professionally Curated Events</p>
-                    <p class="footer-tagline">Est. 2020 • Georgia</p>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
                 </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Navigate</h4>
-                        <a href="index.html">Home</a>
-                        <a href="about.html">About</a>
-                        <a href="services.html">Services</a>
-                        <a href="gallery.html">Gallery</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Connect</h4>
-                        <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
-                        <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
-                    </div>
+                <p class="footer-tagline">Professionally Curated Events</p>
+                <span class="footer-est">Est. 2020 • Georgia</span>
+            </div>
+
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                    <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="services.html">Wedding DJ</a>
+                    <a href="services.html">Premium Package</a>
+                    <a href="services.html">Event DJ</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2025 RPL Entertainment. All rights reserved.</span>
-                <span>Georgia's Premier Wedding DJ</span>
-            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025 RPL Entertainment. All rights reserved.</span>
+            <span>Georgia's Premier Wedding DJ</span>
         </div>
     </footer>
 

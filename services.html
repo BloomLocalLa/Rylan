@@ -9,257 +9,457 @@
     <link rel="icon" type="image/webp" href="RPL+Entertainment+(3).webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
+    <style>
+        .services-detail {
+            padding: var(--space-xl) var(--space-md);
+            background: var(--black);
+        }
+
+        .service-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto var(--space-2xl);
+            padding: var(--space-xl);
+            background: var(--black-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .service-block.featured {
+            border-color: var(--gold);
+            background: linear-gradient(135deg, rgba(212,175,55,0.1) 0%, transparent 50%);
+        }
+
+        .service-featured-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .service-block-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .service-number {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: var(--space-sm);
+            letter-spacing: 2px;
+        }
+
+        .service-block h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 500;
+            margin-bottom: var(--space-xs);
+        }
+
+        .service-tagline {
+            color: var(--gold);
+            font-style: italic;
+            margin-bottom: var(--space-md);
+        }
+
+        .service-description p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: var(--space-sm);
+        }
+
+        .service-features-list {
+            margin-top: var(--space-md);
+        }
+
+        .service-features-list h4 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: var(--space-sm);
+        }
+
+        .service-features-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .service-features-list li {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .service-features-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .service-image {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s var(--ease);
+        }
+
+        .service-block:hover .service-image img {
+            transform: scale(1.05);
+        }
+
+        .faq-section {
+            padding: var(--space-2xl) var(--space-md);
+            background: var(--cream);
+            color: var(--black);
+        }
+
+        .faq-section .section-tag {
+            color: var(--green);
+        }
+
+        .faq-section .section-title {
+            color: var(--green-dark);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .faq-trigger {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) 0;
+            text-align: left;
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--green-dark);
+            cursor: pointer;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .faq-icon span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 14px;
+            height: 2px;
+            background: var(--green-dark);
+            transition: transform 0.3s;
+        }
+
+        .faq-icon span:first-child {
+            transform: translate(-50%, -50%);
+        }
+
+        .faq-icon span:last-child {
+            transform: translate(-50%, -50%) rotate(90deg);
+        }
+
+        .faq-item.active .faq-icon span:last-child {
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s var(--ease), padding 0.4s;
+        }
+
+        .faq-item.active .faq-content {
+            max-height: 200px;
+            padding-bottom: var(--space-md);
+        }
+
+        .faq-content p {
+            color: var(--gray);
+        }
+
+        @media (max-width: 768px) {
+            .service-block {
+                grid-template-columns: 1fr;
+            }
+
+            .service-image {
+                order: -1;
+                aspect-ratio: 16/9;
+            }
+
+            .service-features-list ul {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Custom Cursor -->
-    <div class="cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-        <div class="cursor-text">View</div>
+    <div class="cursor" id="cursor">
+        <div class="cursor-ball"></div>
+        <div class="cursor-text"></div>
     </div>
 
-    <!-- Grain Overlay -->
-    <div class="grain"></div>
+    <!-- Header -->
+    <header class="header scrolled" id="header">
+        <a href="index.html" class="logo">
+            <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
+        </a>
 
-    <!-- Navigation -->
-    <nav class="nav scrolled">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo" data-magnetic>
-                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
-            </a>
-            <div class="nav-menu">
-                <a href="index.html" class="nav-link" data-magnetic><span>Home</span></a>
-                <a href="about.html" class="nav-link" data-magnetic><span>About</span></a>
-                <a href="services.html" class="nav-link active" data-magnetic><span>Services</span></a>
-                <a href="gallery.html" class="nav-link" data-magnetic><span>Gallery</span></a>
-                <a href="contact.html" class="nav-link nav-cta" data-magnetic>
-                    <span>Book Now</span>
-                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <button class="nav-toggle" data-magnetic aria-label="Menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+        <nav class="nav-main">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link active">Services</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="contact.html" class="nav-link cta">Book Now</a>
+        </nav>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <div class="mobile-menu-inner">
-            <div class="mobile-menu-links">
-                <a href="index.html" class="mobile-link">Home</a>
-                <a href="about.html" class="mobile-link">About</a>
-                <a href="services.html" class="mobile-link">Services</a>
-                <a href="gallery.html" class="mobile-link">Gallery</a>
-                <a href="contact.html" class="mobile-link">Contact</a>
-            </div>
-            <div class="mobile-menu-footer">
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-bg"></div>
+        <nav class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="mobile-menu-footer">
+            <div class="mobile-social">
                 <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
                 <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
             </div>
+            <span class="mobile-tagline">Est. 2020 • Georgia</span>
         </div>
     </div>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <span class="section-label">What We Offer</span>
-            <h1 class="page-title">Our Services</h1>
-        </div>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <span class="section-tag">What We Offer</span>
+        <h1>Our <em>Services</em></h1>
     </section>
 
     <!-- Services List -->
     <section class="services-detail">
-        <div class="container">
-            <!-- Wedding DJ -->
-            <div class="service-block">
-                <div class="service-block-header">
-                    <div class="service-number">01</div>
-                    <div class="service-info">
-                        <h2>Wedding DJ</h2>
-                        <p class="service-tagline">Your Love Story, Set to Music</p>
-                    </div>
+        <!-- Wedding DJ -->
+        <div class="service-block">
+            <div class="service-block-content">
+                <div class="service-number">01</div>
+                <h2>Wedding DJ</h2>
+                <p class="service-tagline">Your Love Story, Set to Music</p>
+                <div class="service-description">
+                    <p>
+                        From the moment your guests arrive to the last dance, we create a seamless musical journey that reflects your unique love story. Our wedding DJ services include professional MC duties, ensuring every moment flows perfectly.
+                    </p>
+                    <p>
+                        We work closely with you to curate the perfect playlist, incorporating your must-play songs, special dedications, and carefully timed moments that will have everyone on their feet.
+                    </p>
                 </div>
-                <div class="service-block-content">
-                    <div class="service-description">
-                        <p>
-                            From the moment your guests arrive to the last dance, we create a seamless musical journey that reflects your unique love story. Our wedding DJ services include professional MC duties, ensuring every moment flows perfectly.
-                        </p>
-                        <p>
-                            We work closely with you to curate the perfect playlist, incorporating your must-play songs, special dedications, and carefully timed moments that will have everyone on their feet.
-                        </p>
-                    </div>
-                    <div class="service-features-list">
-                        <h4>What's Included:</h4>
-                        <ul>
-                            <li>Pre-wedding consultation</li>
-                            <li>Custom playlist curation</li>
-                            <li>Ceremony music</li>
-                            <li>Cocktail hour entertainment</li>
-                            <li>Reception DJ & MC services</li>
-                            <li>Professional sound system</li>
-                            <li>Wireless microphones</li>
-                            <li>Up to 6 hours of coverage</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="service-image">
-                    <img src="hero-party.jpg" alt="Wedding DJ Setup">
+                <div class="service-features-list">
+                    <h4>What's Included:</h4>
+                    <ul>
+                        <li>Pre-wedding consultation</li>
+                        <li>Custom playlist curation</li>
+                        <li>Ceremony music</li>
+                        <li>Cocktail hour entertainment</li>
+                        <li>Reception DJ & MC services</li>
+                        <li>Professional sound system</li>
+                        <li>Wireless microphones</li>
+                        <li>Up to 6 hours of coverage</li>
+                    </ul>
                 </div>
             </div>
+            <div class="service-image">
+                <img src="hero-party.jpg" alt="Wedding DJ Setup">
+            </div>
+        </div>
 
-            <!-- Premium Package -->
-            <div class="service-block featured">
-                <div class="service-featured-badge">Most Popular</div>
-                <div class="service-block-header">
-                    <div class="service-number">02</div>
-                    <div class="service-info">
-                        <h2>Premium Package</h2>
-                        <p class="service-tagline">The Complete Experience</p>
-                    </div>
+        <!-- Premium Package -->
+        <div class="service-block featured">
+            <div class="service-featured-badge">Most Popular</div>
+            <div class="service-block-content">
+                <div class="service-number">02</div>
+                <h2>Premium Package</h2>
+                <p class="service-tagline">The Complete Experience</p>
+                <div class="service-description">
+                    <p>
+                        Our premium package is designed for couples who want it all. Beyond exceptional DJ services, you get a fully immersive audio-visual experience that transforms your venue into something magical.
+                    </p>
+                    <p>
+                        Intelligent lighting that responds to the music, elegant uplighting that matches your color scheme, and premium sound quality that makes every song feel like a live performance.
+                    </p>
                 </div>
-                <div class="service-block-content">
-                    <div class="service-description">
-                        <p>
-                            Our premium package is designed for couples who want it all. Beyond exceptional DJ services, you get a fully immersive audio-visual experience that transforms your venue into something magical.
-                        </p>
-                        <p>
-                            Intelligent lighting that responds to the music, elegant uplighting that matches your color scheme, and premium sound quality that makes every song feel like a live performance.
-                        </p>
-                    </div>
-                    <div class="service-features-list">
-                        <h4>What's Included:</h4>
-                        <ul>
-                            <li>Everything in Wedding DJ package</li>
-                            <li>Premium sound system upgrade</li>
-                            <li>Intelligent dance floor lighting</li>
-                            <li>Venue uplighting (16 fixtures)</li>
-                            <li>Dedicated planning session</li>
-                            <li>Day-of coordination support</li>
-                            <li>Extended coverage (up to 8 hours)</li>
-                            <li>Backup equipment on-site</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="service-image">
-                    <img src="event-1.jpg" alt="Premium DJ Setup with Lighting">
+                <div class="service-features-list">
+                    <h4>What's Included:</h4>
+                    <ul>
+                        <li>Everything in Wedding DJ package</li>
+                        <li>Premium sound system upgrade</li>
+                        <li>Intelligent dance floor lighting</li>
+                        <li>Venue uplighting (16 fixtures)</li>
+                        <li>Dedicated planning session</li>
+                        <li>Day-of coordination support</li>
+                        <li>Extended coverage (up to 8 hours)</li>
+                        <li>Backup equipment on-site</li>
+                    </ul>
                 </div>
             </div>
+            <div class="service-image">
+                <img src="event-1.jpg" alt="Premium DJ Setup with Lighting">
+            </div>
+        </div>
 
-            <!-- Event DJ -->
-            <div class="service-block">
-                <div class="service-block-header">
-                    <div class="service-number">03</div>
-                    <div class="service-info">
-                        <h2>Event DJ</h2>
-                        <p class="service-tagline">Beyond Weddings</p>
-                    </div>
+        <!-- Event DJ -->
+        <div class="service-block">
+            <div class="service-block-content">
+                <div class="service-number">03</div>
+                <h2>Event DJ</h2>
+                <p class="service-tagline">Beyond Weddings</p>
+                <div class="service-description">
+                    <p>
+                        Corporate galas, birthday celebrations, anniversary parties, holiday events—whatever the occasion, we bring the same level of professionalism and energy that makes our wedding services exceptional.
+                    </p>
+                    <p>
+                        We understand that every event has its own vibe and audience. We tailor our approach to match your event's atmosphere, whether it's an elegant corporate function or an energetic birthday bash.
+                    </p>
                 </div>
-                <div class="service-block-content">
-                    <div class="service-description">
-                        <p>
-                            Corporate galas, birthday celebrations, anniversary parties, holiday events—whatever the occasion, we bring the same level of professionalism and energy that makes our wedding services exceptional.
-                        </p>
-                        <p>
-                            We understand that every event has its own vibe and audience. We tailor our approach to match your event's atmosphere, whether it's an elegant corporate function or an energetic birthday bash.
-                        </p>
-                    </div>
-                    <div class="service-features-list">
-                        <h4>Perfect For:</h4>
-                        <ul>
-                            <li>Corporate events & galas</li>
-                            <li>Birthday celebrations</li>
-                            <li>Anniversary parties</li>
-                            <li>Holiday events</li>
-                            <li>Graduation parties</li>
-                            <li>Private celebrations</li>
-                            <li>Fundraisers</li>
-                            <li>Award ceremonies</li>
-                        </ul>
-                    </div>
+                <div class="service-features-list">
+                    <h4>Perfect For:</h4>
+                    <ul>
+                        <li>Corporate events & galas</li>
+                        <li>Birthday celebrations</li>
+                        <li>Anniversary parties</li>
+                        <li>Holiday events</li>
+                        <li>Graduation parties</li>
+                        <li>Private celebrations</li>
+                        <li>Fundraisers</li>
+                        <li>Award ceremonies</li>
+                    </ul>
                 </div>
-                <div class="service-image">
-                    <img src="event-2.jpg" alt="Corporate Event DJ">
-                </div>
+            </div>
+            <div class="service-image">
+                <img src="event-2.jpg" alt="Corporate Event DJ">
             </div>
         </div>
     </section>
 
     <!-- FAQ Section -->
     <section class="faq-section">
-        <div class="container">
-            <div class="section-header centered">
-                <span class="section-label">FAQ</span>
-                <h2 class="section-title">Common Questions</h2>
+        <div style="text-align: center; margin-bottom: var(--space-xl);">
+            <span class="section-tag">FAQ</span>
+            <h2 class="section-title">Common Questions</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>What areas do you serve?</span>
+                    <div class="faq-icon"><span></span><span></span></div>
+                </button>
+                <div class="faq-content">
+                    <p>We're based in Georgia and serve the entire state—Atlanta, Savannah, Augusta, and beyond. We're also available for destination events. Contact us to discuss your location.</p>
+                </div>
             </div>
 
-            <div class="faq-list">
-                <div class="faq-item">
-                    <button class="faq-trigger">
-                        <span>What areas do you serve?</span>
-                        <div class="faq-icon"><span></span><span></span></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>We're based in Georgia and serve the entire state—Atlanta, Savannah, Augusta, and beyond. We're also available for destination events. Contact us to discuss your location.</p>
-                    </div>
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>How far in advance should I book?</span>
+                    <div class="faq-icon"><span></span><span></span></div>
+                </button>
+                <div class="faq-content">
+                    <p>We recommend booking 6-12 months in advance for weddings, especially for peak season dates (May-October). However, we can sometimes accommodate shorter timelines—reach out and let's see what's possible.</p>
                 </div>
+            </div>
 
-                <div class="faq-item">
-                    <button class="faq-trigger">
-                        <span>How far in advance should I book?</span>
-                        <div class="faq-icon"><span></span><span></span></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>We recommend booking 6-12 months in advance for weddings, especially for peak season dates (May-October). However, we can sometimes accommodate shorter timelines—reach out and let's see what's possible.</p>
-                    </div>
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>Do you take song requests?</span>
+                    <div class="faq-icon"><span></span><span></span></div>
+                </button>
+                <div class="faq-content">
+                    <p>Absolutely! We collaborate with you to build a custom playlist that tells your story. We also take guest requests during the event to keep everyone on the floor—while respecting any "do not play" lists you provide.</p>
                 </div>
+            </div>
 
-                <div class="faq-item">
-                    <button class="faq-trigger">
-                        <span>Do you take song requests?</span>
-                        <div class="faq-icon"><span></span><span></span></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>Absolutely! We collaborate with you to build a custom playlist that tells your story. We also take guest requests during the event to keep everyone on the floor—while respecting any "do not play" lists you provide.</p>
-                    </div>
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>What equipment do you use?</span>
+                    <div class="faq-icon"><span></span><span></span></div>
+                </button>
+                <div class="faq-content">
+                    <p>We use professional-grade sound systems and intelligent lighting equipment from top brands. Our setup is tailored to your venue size and event needs—always crisp, always clear, always appropriate for the space.</p>
                 </div>
+            </div>
 
-                <div class="faq-item">
-                    <button class="faq-trigger">
-                        <span>What equipment do you use?</span>
-                        <div class="faq-icon"><span></span><span></span></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>We use professional-grade sound systems and intelligent lighting equipment from top brands. Our setup is tailored to your venue size and event needs—always crisp, always clear, always appropriate for the space.</p>
-                    </div>
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>What happens if there's an equipment issue?</span>
+                    <div class="faq-icon"><span></span><span></span></div>
+                </button>
+                <div class="faq-content">
+                    <p>We always bring backup equipment to every event. In our years of operation, we've never had an issue that stopped the music—and we plan to keep it that way with redundant systems and thorough preparation.</p>
                 </div>
+            </div>
 
-                <div class="faq-item">
-                    <button class="faq-trigger">
-                        <span>What happens if there's an equipment issue?</span>
-                        <div class="faq-icon"><span></span><span></span></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>We always bring backup equipment to every event. In our years of operation, we've never had an issue that stopped the music—and we plan to keep it that way with redundant systems and thorough preparation.</p>
-                    </div>
-                </div>
-
-                <div class="faq-item">
-                    <button class="faq-trigger">
-                        <span>Do you offer ceremony music?</span>
-                        <div class="faq-icon"><span></span><span></span></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>Yes! Our wedding packages include ceremony music. We can provide elegant background music for guest arrival, processional and recessional music, and any special songs for unity ceremonies or readings.</p>
-                    </div>
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>Do you offer ceremony music?</span>
+                    <div class="faq-icon"><span></span><span></span></div>
+                </button>
+                <div class="faq-content">
+                    <p>Yes! Our wedding packages include ceremony music. We can provide elegant background music for guest arrival, processional and recessional music, and any special songs for unity ceremonies or readings.</p>
                 </div>
             </div>
         </div>
@@ -267,49 +467,58 @@
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="container">
+        <div class="cta-inner">
             <div class="cta-content">
-                <h2>Ready to Get Started?</h2>
+                <h2>Ready to Get <em>Started?</em></h2>
                 <p>Request a custom quote for your event.</p>
-                <a href="contact.html" class="btn-primary btn-large" data-magnetic>
-                    <span class="btn-text">Request a Quote</span>
-                    <span class="btn-icon">
-                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </span>
+                <a href="contact.html" class="btn-primary light">
+                    <span class="btn-fill"></span>
+                    <span class="btn-label">Request a Quote</span>
                 </a>
+            </div>
+            <div class="cta-logo">
+                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
-                    <p>Professionally Curated Events</p>
-                    <p class="footer-tagline">Est. 2020 • Georgia</p>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
                 </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Navigate</h4>
-                        <a href="index.html">Home</a>
-                        <a href="about.html">About</a>
-                        <a href="services.html">Services</a>
-                        <a href="gallery.html">Gallery</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Connect</h4>
-                        <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
-                        <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
-                    </div>
+                <p class="footer-tagline">Professionally Curated Events</p>
+                <span class="footer-est">Est. 2020 • Georgia</span>
+            </div>
+
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                    <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="services.html">Wedding DJ</a>
+                    <a href="services.html">Premium Package</a>
+                    <a href="services.html">Event DJ</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2025 RPL Entertainment. All rights reserved.</span>
-                <span>Georgia's Premier Wedding DJ</span>
-            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025 RPL Entertainment. All rights reserved.</span>
+            <span>Georgia's Premier Wedding DJ</span>
         </div>
     </footer>
 

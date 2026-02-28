@@ -9,7 +9,7 @@
     <link rel="icon" type="image/webp" href="RPL+Entertainment+(3).webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -19,278 +19,575 @@
     <script src="https://widget.honeybook.com/assets/embed.js" defer></script>
 
     <link rel="stylesheet" href="style.css">
+    <style>
+        .contact-section {
+            padding: var(--space-xl) var(--space-md) var(--space-2xl);
+            background: var(--black);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--space-xl);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+        }
+
+        .contact-intro {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact-details {
+            margin-bottom: var(--space-lg);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--white);
+        }
+
+        .contact-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gray);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .contact-value {
+            color: var(--white);
+        }
+
+        .contact-value.link {
+            color: var(--gold);
+            transition: color 0.3s;
+        }
+
+        .contact-value.link:hover {
+            color: var(--gold-light);
+        }
+
+        .contact-hours {
+            padding: var(--space-md);
+            background: var(--black-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+        }
+
+        .contact-hours h3 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .contact-hours p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .contact-form-wrapper {
+            background: var(--black-light);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: var(--space-lg);
+        }
+
+        .form-header {
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            margin-bottom: var(--space-xs);
+        }
+
+        .form-header p {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-group.full {
+            grid-column: span 2;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding: var(--space-sm) 0;
+            font-size: 15px;
+            color: var(--white);
+            font-family: var(--font-body);
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group label {
+            position: absolute;
+            top: var(--space-sm);
+            left: 0;
+            font-size: 14px;
+            color: var(--gray);
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group select:focus + label,
+        .form-group select:valid + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -8px;
+            font-size: 10px;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .checkbox-label input {
+            display: none;
+        }
+
+        .checkbox-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .checkbox-label input:checked + .checkbox-custom {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .checkbox-custom::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            width: 5px;
+            height: 10px;
+            border: solid var(--black);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+
+        .checkbox-label input:checked + .checkbox-custom::after {
+            opacity: 1;
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--gold);
+            color: var(--black);
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            margin-top: var(--space-md);
+        }
+
+        .btn-submit:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-submit svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .map-section {
+            position: relative;
+            min-height: 400px;
+            background: var(--green-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .map-content {
+            text-align: center;
+            z-index: 2;
+        }
+
+        .map-content h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 500;
+            margin-bottom: var(--space-sm);
+        }
+
+        .map-content p {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .map-note {
+            margin-top: var(--space-sm);
+            font-size: 14px;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: span 1;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Custom Cursor -->
-    <div class="cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-        <div class="cursor-text">View</div>
+    <div class="cursor" id="cursor">
+        <div class="cursor-ball"></div>
+        <div class="cursor-text"></div>
     </div>
 
-    <!-- Grain Overlay -->
-    <div class="grain"></div>
+    <!-- Header -->
+    <header class="header scrolled" id="header">
+        <a href="index.html" class="logo">
+            <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
+        </a>
 
-    <!-- Navigation -->
-    <nav class="nav scrolled">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo" data-magnetic>
-                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
-            </a>
-            <div class="nav-menu">
-                <a href="index.html" class="nav-link" data-magnetic><span>Home</span></a>
-                <a href="about.html" class="nav-link" data-magnetic><span>About</span></a>
-                <a href="services.html" class="nav-link" data-magnetic><span>Services</span></a>
-                <a href="gallery.html" class="nav-link" data-magnetic><span>Gallery</span></a>
-                <a href="contact.html" class="nav-link nav-cta active" data-magnetic>
-                    <span>Book Now</span>
-                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <button class="nav-toggle" data-magnetic aria-label="Menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+        <nav class="nav-main">
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="contact.html" class="nav-link cta active">Book Now</a>
+        </nav>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <div class="mobile-menu-inner">
-            <div class="mobile-menu-links">
-                <a href="index.html" class="mobile-link">Home</a>
-                <a href="about.html" class="mobile-link">About</a>
-                <a href="services.html" class="mobile-link">Services</a>
-                <a href="gallery.html" class="mobile-link">Gallery</a>
-                <a href="contact.html" class="mobile-link">Contact</a>
-            </div>
-            <div class="mobile-menu-footer">
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-bg"></div>
+        <nav class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="mobile-menu-footer">
+            <div class="mobile-social">
                 <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
                 <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
             </div>
+            <span class="mobile-tagline">Est. 2020 • Georgia</span>
         </div>
     </div>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <span class="section-label">Get in Touch</span>
-            <h1 class="page-title">Let's Create Something<br>Unforgettable</h1>
-        </div>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <span class="section-tag">Get in Touch</span>
+        <h1>Let's Create Something<br><em>Unforgettable</em></h1>
     </section>
 
     <!-- Contact Section -->
     <section class="contact-section">
-        <div class="container">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h2>Ready to Book?</h2>
-                    <p class="contact-intro">
-                        Tell us about your vision and we'll be in touch within 24 hours to discuss how we can make your event extraordinary.
-                    </p>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h2>Ready to Book?</h2>
+                <p class="contact-intro">
+                    Tell us about your vision and we'll be in touch within 24 hours to discuss how we can make your event extraordinary.
+                </p>
 
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <span class="contact-label">Location</span>
-                                <span class="contact-value">Serving all of Georgia</span>
-                            </div>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
                         </div>
-
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <span class="contact-label">Instagram</span>
-                                <a href="https://instagram.com/rplentertainment" class="contact-value link" target="_blank">@rplentertainment</a>
-                            </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <span class="contact-label">Facebook</span>
-                                <a href="https://facebook.com/rplentertainment" class="contact-value link" target="_blank">RPL Entertainment</a>
-                            </div>
+                        <div>
+                            <span class="contact-label">Location</span>
+                            <span class="contact-value">Serving all of Georgia</span>
                         </div>
                     </div>
 
-                    <div class="contact-hours">
-                        <h3>Response Time</h3>
-                        <p>We typically respond within 24 hours. For urgent inquiries, reach out via Instagram DM.</p>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="contact-label">Instagram</span>
+                            <a href="https://instagram.com/rplentertainment" class="contact-value link" target="_blank">@rplentertainment</a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="contact-label">Facebook</span>
+                            <a href="https://facebook.com/rplentertainment" class="contact-value link" target="_blank">RPL Entertainment</a>
+                        </div>
                     </div>
                 </div>
 
-                <div class="contact-form-wrapper">
-                    <!-- HoneyBook Form Container -->
-                    <div id="honeybook-form">
-                        <!--
-                        ============================================
-                        HONEYBOOK INTEGRATION INSTRUCTIONS
-                        ============================================
+                <div class="contact-hours">
+                    <h3>Response Time</h3>
+                    <p>We typically respond within 24 hours. For urgent inquiries, reach out via Instagram DM.</p>
+                </div>
+            </div>
 
-                        To embed your HoneyBook contact form:
+            <div class="contact-form-wrapper">
+                <!-- HoneyBook Form Container -->
+                <div id="honeybook-form">
+                    <!--
+                    ============================================
+                    HONEYBOOK INTEGRATION INSTRUCTIONS
+                    ============================================
 
-                        1. Log into your HoneyBook account
-                        2. Go to Tools > Contact Forms
-                        3. Create or select your contact form
-                        4. Click "Embed" and copy the code
-                        5. Replace this comment with your embed code
+                    To embed your HoneyBook contact form:
 
-                        Example:
-                        <script src="https://widget.honeybook.com/widget_embed.js"
-                                data-companyId="YOUR_COMPANY_ID"
-                                data-widgetType="contact_form">
-                        </script>
+                    1. Log into your HoneyBook account
+                    2. Go to Tools > Contact Forms
+                    3. Create or select your contact form
+                    4. Click "Embed" and copy the code
+                    5. Replace this comment with your embed code
 
-                        ============================================
-                        -->
+                    Example:
+                    <script src="https://widget.honeybook.com/widget_embed.js"
+                            data-companyId="YOUR_COMPANY_ID"
+                            data-widgetType="contact_form">
+                    </script>
 
-                        <!-- Fallback Form (shown until HoneyBook is configured) -->
-                        <form class="contact-form" id="contact-form">
-                            <div class="form-header">
-                                <h3>Request a Quote</h3>
-                                <p>Fill out the form below and we'll get back to you.</p>
+                    ============================================
+                    -->
+
+                    <!-- Fallback Form (shown until HoneyBook is configured) -->
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-header">
+                            <h3>Request a Quote</h3>
+                            <p>Fill out the form below and we'll get back to you.</p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" required placeholder=" ">
+                                <label for="name">Your Name *</label>
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="text" id="name" name="name" required placeholder=" ">
-                                    <label for="name">Your Name *</label>
-                                    <div class="form-line"></div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" id="email" name="email" required placeholder=" ">
-                                    <label for="email">Email Address *</label>
-                                    <div class="form-line"></div>
-                                </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" required placeholder=" ">
+                                <label for="email">Email Address *</label>
                             </div>
+                        </div>
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <input type="tel" id="phone" name="phone" placeholder=" ">
-                                    <label for="phone">Phone Number</label>
-                                    <div class="form-line"></div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="date" id="event-date" name="event-date" placeholder=" ">
-                                    <label for="event-date">Event Date</label>
-                                    <div class="form-line"></div>
-                                </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" placeholder=" ">
+                                <label for="phone">Phone Number</label>
                             </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <select id="event-type" name="event-type" required>
-                                        <option value="" disabled selected></option>
-                                        <option value="wedding">Wedding</option>
-                                        <option value="corporate">Corporate Event</option>
-                                        <option value="private">Private Party</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                    <label for="event-type">Event Type *</label>
-                                    <div class="form-line"></div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" id="venue" name="venue" placeholder=" ">
-                                    <label for="venue">Venue (if known)</label>
-                                    <div class="form-line"></div>
-                                </div>
+                            <div class="form-group">
+                                <input type="date" id="event-date" name="event-date" placeholder=" ">
+                                <label for="event-date">Event Date</label>
                             </div>
+                        </div>
 
-                            <div class="form-group full">
-                                <input type="text" id="guest-count" name="guest-count" placeholder=" ">
-                                <label for="guest-count">Estimated Guest Count</label>
-                                <div class="form-line"></div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <select id="event-type" name="event-type" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="wedding">Wedding</option>
+                                    <option value="corporate">Corporate Event</option>
+                                    <option value="private">Private Party</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="event-type">Event Type *</label>
                             </div>
-
-                            <div class="form-group full">
-                                <textarea id="message" name="message" rows="4" placeholder=" "></textarea>
-                                <label for="message">Tell us about your event</label>
-                                <div class="form-line"></div>
+                            <div class="form-group">
+                                <input type="text" id="venue" name="venue" placeholder=" ">
+                                <label for="venue">Venue (if known)</label>
                             </div>
+                        </div>
 
-                            <div class="form-group full">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="newsletter">
-                                    <span class="checkbox-custom"></span>
-                                    <span>Keep me updated with news and special offers</span>
-                                </label>
-                            </div>
+                        <div class="form-group full">
+                            <input type="text" id="guest-count" name="guest-count" placeholder=" ">
+                            <label for="guest-count">Estimated Guest Count</label>
+                        </div>
 
-                            <button type="submit" class="btn-submit" data-magnetic>
-                                <span class="btn-text">Send Message</span>
-                                <span class="btn-icon">
-                                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                </span>
-                            </button>
-                        </form>
-                    </div>
+                        <div class="form-group full">
+                            <textarea id="message" name="message" rows="4" placeholder=" "></textarea>
+                            <label for="message">Tell us about your event</label>
+                        </div>
+
+                        <div class="form-group full">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="newsletter">
+                                <span class="checkbox-custom"></span>
+                                <span>Keep me updated with news and special offers</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <span class="btn-text">Send Message</span>
+                            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Map Section (optional placeholder) -->
+    <!-- Map Section -->
     <section class="map-section">
-        <div class="map-overlay">
-            <div class="container">
-                <div class="map-content">
-                    <h2>Serving All of Georgia</h2>
-                    <p>Atlanta • Savannah • Augusta • Athens • Macon • And Beyond</p>
-                    <p class="map-note">Available for destination events nationwide</p>
-                </div>
-            </div>
-        </div>
-        <div class="map-placeholder">
-            <div class="map-bg"></div>
+        <div class="map-content">
+            <h2>Serving All of Georgia</h2>
+            <p>Atlanta • Savannah • Augusta • Athens • Macon • And Beyond</p>
+            <p class="map-note">Available for destination events nationwide</p>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
-                    <p>Professionally Curated Events</p>
-                    <p class="footer-tagline">Est. 2020 • Georgia</p>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
                 </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Navigate</h4>
-                        <a href="index.html">Home</a>
-                        <a href="about.html">About</a>
-                        <a href="services.html">Services</a>
-                        <a href="gallery.html">Gallery</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Connect</h4>
-                        <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
-                        <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
-                    </div>
+                <p class="footer-tagline">Professionally Curated Events</p>
+                <span class="footer-est">Est. 2020 • Georgia</span>
+            </div>
+
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                    <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="services.html">Wedding DJ</a>
+                    <a href="services.html">Premium Package</a>
+                    <a href="services.html">Event DJ</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2025 RPL Entertainment. All rights reserved.</span>
-                <span>Georgia's Premier Wedding DJ</span>
-            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025 RPL Entertainment. All rights reserved.</span>
+            <span>Georgia's Premier Wedding DJ</span>
         </div>
     </footer>
 

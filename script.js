@@ -1,27 +1,26 @@
 /**
- * RPL Entertainment - Multi-Page Website
- * Award-winning interactions and animations
+ * RPL Entertainment - Award-Winning Website
+ * Premium animations and interactions
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if we're on homepage (has preloader)
-    const preloader = document.querySelector('.preloader');
-    if (preloader) {
-        initPreloader();
-    } else {
-        initApp();
-    }
+    initPreloader();
 });
 
 /**
- * Preloader (homepage only)
+ * Preloader
  */
 function initPreloader() {
-    const preloader = document.querySelector('.preloader');
-    const progress = document.querySelector('.preloader-progress');
+    const preloader = document.getElementById('preloader');
+    const progress = document.getElementById('preloaderProgress');
+
+    if (!preloader) {
+        initApp();
+        return;
+    }
 
     let count = 0;
-    const duration = 1500;
+    const duration = 2000;
     const interval = duration / 100;
 
     const timer = setInterval(() => {
@@ -32,13 +31,14 @@ function initPreloader() {
             clearInterval(timer);
 
             gsap.to(preloader, {
-                yPercent: -100,
-                duration: 0.8,
-                ease: 'power4.inOut',
-                delay: 0.2,
+                opacity: 0,
+                duration: 0.6,
+                delay: 0.3,
+                ease: 'power2.inOut',
                 onComplete: () => {
-                    preloader.style.display = 'none';
+                    preloader.classList.add('hidden');
                     initApp();
+                    animateHero();
                 }
             });
         }
@@ -46,17 +46,15 @@ function initPreloader() {
 }
 
 /**
- * Initialize all app components
+ * Initialize App
  */
 function initApp() {
     initLenis();
     initCursor();
-    initNavigation();
-    initAnimations();
-    initFAQ();
+    initHeader();
+    initMobileMenu();
+    initScrollAnimations();
     initMagnetic();
-    initContactForm();
-    initCountUp();
 }
 
 /**
@@ -67,13 +65,8 @@ function initLenis() {
     lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        direction: 'vertical',
-        gestureDirection: 'vertical',
         smooth: true,
-        mouseMultiplier: 1,
         smoothTouch: false,
-        touchMultiplier: 2,
-        infinite: false,
     });
 
     function raf(time) {
@@ -91,7 +84,7 @@ function initLenis() {
         gsap.ticker.lagSmoothing(0);
     }
 
-    // Smooth scroll for anchor links
+    // Anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -99,7 +92,7 @@ function initLenis() {
                 e.preventDefault();
                 const target = document.querySelector(href);
                 if (target) {
-                    lenis.scrollTo(target, { offset: -80 });
+                    lenis.scrollTo(target, { offset: -100 });
                 }
             }
         });
@@ -110,137 +103,246 @@ function initLenis() {
  * Custom Cursor
  */
 function initCursor() {
-    const cursor = document.querySelector('.cursor');
-    const cursorDot = document.querySelector('.cursor-dot');
-    const cursorOutline = document.querySelector('.cursor-outline');
+    const cursor = document.getElementById('cursor');
+    const cursorBall = document.querySelector('.cursor-ball');
     const cursorText = document.querySelector('.cursor-text');
 
     if (!cursor || window.matchMedia('(pointer: coarse)').matches) return;
 
     let mouseX = 0, mouseY = 0;
-    let outlineX = 0, outlineY = 0;
+    let ballX = 0, ballY = 0;
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
-
-        gsap.to(cursorDot, {
-            x: mouseX,
-            y: mouseY,
-            duration: 0.1
-        });
     });
 
-    function animateOutline() {
-        outlineX += (mouseX - outlineX) * 0.15;
-        outlineY += (mouseY - outlineY) * 0.15;
+    function animate() {
+        ballX += (mouseX - ballX) * 0.15;
+        ballY += (mouseY - ballY) * 0.15;
 
-        gsap.set(cursorOutline, { x: outlineX, y: outlineY });
-        gsap.set(cursorText, { x: outlineX, y: outlineY });
+        gsap.set(cursorBall, {
+            x: ballX - 6,
+            y: ballY - 6
+        });
 
-        requestAnimationFrame(animateOutline);
+        if (cursorText) {
+            gsap.set(cursorText, {
+                x: ballX,
+                y: ballY
+            });
+        }
+
+        requestAnimationFrame(animate);
     }
-    animateOutline();
+    animate();
 
-    // Hover effects
-    document.querySelectorAll('a, button, [data-magnetic]').forEach(el => {
+    // Hover states
+    document.querySelectorAll('a, button').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
     });
 
-    // Text cursor for gallery/work items
-    document.querySelectorAll('[data-cursor-text]').forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            cursor.classList.add('text');
-            cursorText.textContent = item.dataset.cursorText;
+    // Active states with text
+    document.querySelectorAll('[data-cursor]').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            cursor.classList.add('active');
+            if (cursorText) cursorText.textContent = el.dataset.cursor;
         });
-        item.addEventListener('mouseleave', () => {
-            cursor.classList.remove('text');
+        el.addEventListener('mouseleave', () => {
+            cursor.classList.remove('active');
         });
     });
 
-    // Hide cursor when leaving window
+    // Hide when leaving window
     document.addEventListener('mouseleave', () => {
-        gsap.to(cursor, { opacity: 0, duration: 0.3 });
+        gsap.to(cursor, { opacity: 0, duration: 0.2 });
     });
     document.addEventListener('mouseenter', () => {
-        gsap.to(cursor, { opacity: 1, duration: 0.3 });
+        gsap.to(cursor, { opacity: 1, duration: 0.2 });
     });
 }
 
 /**
- * Navigation
+ * Header Scroll Effect
  */
-function initNavigation() {
-    const nav = document.querySelector('.nav');
-    const navToggle = document.querySelector('.nav-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+function initHeader() {
+    const header = document.getElementById('header');
+    if (!header) return;
 
-    // Scroll effect (only if not already scrolled class)
-    if (!nav.classList.contains('scrolled')) {
-        ScrollTrigger.create({
-            start: 'top -100',
-            onUpdate: (self) => {
-                if (self.direction === 1 || window.scrollY > 100) {
-                    nav.classList.add('scrolled');
-                }
-                if (self.progress === 0 && window.scrollY <= 100) {
-                    nav.classList.remove('scrolled');
-                }
-            }
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+
+        if (currentScroll > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        lastScroll = currentScroll;
+    });
+}
+
+/**
+ * Mobile Menu
+ */
+function initMobileMenu() {
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('mobileMenu');
+
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('active');
+        menu.classList.toggle('active');
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : '';
+    });
+
+    // Close on link click
+    menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            toggle.classList.remove('active');
+            menu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+}
+
+/**
+ * Hero Animation
+ */
+function animateHero() {
+    const words = document.querySelectorAll('.hero-title .word');
+    const badge = document.querySelector('.hero-badge');
+    const tagline = document.querySelector('.hero-tagline');
+    const ctas = document.querySelector('.hero-ctas');
+    const stats = document.querySelectorAll('.stat');
+    const scrollIndicator = document.querySelector('.hero-scroll-indicator');
+
+    if (words.length) {
+        gsap.to(words, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.1,
+            ease: 'power4.out'
         });
     }
 
-    // Mobile menu toggle
-    if (navToggle && mobileMenu) {
-        navToggle.addEventListener('click', () => {
-            navToggle.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        });
+    const tl = gsap.timeline({ delay: 0.3 });
 
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            });
-        });
+    if (badge) {
+        tl.from(badge, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, 0);
+    }
+
+    if (tagline) {
+        tl.from(tagline, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            ease: 'power3.out'
+        }, 0.6);
+    }
+
+    if (ctas) {
+        tl.from(ctas.children, {
+            opacity: 0,
+            y: 20,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power3.out'
+        }, 0.7);
+    }
+
+    if (stats.length) {
+        tl.from(stats, {
+            opacity: 0,
+            x: 30,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power3.out'
+        }, 0.8);
+    }
+
+    if (scrollIndicator) {
+        tl.from(scrollIndicator, {
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out'
+        }, 1);
     }
 }
 
 /**
  * Scroll Animations
  */
-function initAnimations() {
+function initScrollAnimations() {
     if (typeof ScrollTrigger === 'undefined') return;
 
-    // Fade in elements
-    gsap.utils.toArray('.section-title, .section-label, .page-title').forEach(el => {
+    // Intro section
+    gsap.utils.toArray('.intro-text').forEach(el => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 60,
+            duration: 1,
+            ease: 'power3.out'
+        });
+    });
+
+    // Section tags and titles
+    gsap.utils.toArray('.section-tag, .section-title, .section-title-large').forEach(el => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
                 start: 'top 85%',
                 toggleActions: 'play none none reverse'
             },
-            y: 40,
             opacity: 0,
+            y: 40,
             duration: 0.8,
             ease: 'power3.out'
         });
     });
 
-    // Service cards, value cards, etc.
-    gsap.utils.toArray('.service-card, .value-card, .testimonial-card, .stat-card').forEach((el, i) => {
+    // About images
+    gsap.utils.toArray('.about-img').forEach((el, i) => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
                 start: 'top 85%',
                 toggleActions: 'play none none reverse'
             },
-            y: 50,
             opacity: 0,
+            y: 80,
+            scale: 0.95,
+            duration: 1,
+            delay: i * 0.2,
+            ease: 'power3.out'
+        });
+    });
+
+    // Service cards
+    gsap.utils.toArray('.service-card').forEach((el, i) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 50,
             duration: 0.6,
             delay: i * 0.1,
             ease: 'power3.out'
@@ -248,37 +350,85 @@ function initAnimations() {
     });
 
     // Gallery items
-    gsap.utils.toArray('.gallery-item, .work-item, .work-main').forEach((el, i) => {
+    gsap.utils.toArray('.gallery-item').forEach((el, i) => {
         gsap.from(el, {
             scrollTrigger: {
                 trigger: el,
                 start: 'top 85%',
                 toggleActions: 'play none none reverse'
             },
-            y: 60,
             opacity: 0,
+            y: 60,
+            scale: 0.98,
             duration: 0.8,
-            delay: i * 0.05,
+            delay: i * 0.1,
             ease: 'power3.out'
         });
     });
 
-    // Service blocks
-    gsap.utils.toArray('.service-block').forEach(el => {
-        gsap.from(el, {
+    // Testimonial
+    const testimonialContent = document.querySelector('.testimonial-content');
+    if (testimonialContent) {
+        gsap.from(testimonialContent, {
             scrollTrigger: {
-                trigger: el,
+                trigger: testimonialContent,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 60,
+            duration: 1,
+            ease: 'power3.out'
+        });
+    }
+
+    // CTA section
+    const ctaContent = document.querySelector('.cta-content');
+    const ctaLogo = document.querySelector('.cta-logo');
+    if (ctaContent) {
+        gsap.from(ctaContent, {
+            scrollTrigger: {
+                trigger: ctaContent,
                 start: 'top 80%',
                 toggleActions: 'play none none reverse'
             },
-            y: 60,
             opacity: 0,
+            x: -50,
             duration: 0.8,
             ease: 'power3.out'
         });
-    });
+    }
+    if (ctaLogo) {
+        gsap.from(ctaLogo, {
+            scrollTrigger: {
+                trigger: ctaLogo,
+                start: 'top 80%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0.8,
+            rotation: -10,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+    }
 
-    // FAQ items
+    // Parallax for hero image
+    const heroImg = document.querySelector('.hero-img-wrapper');
+    if (heroImg) {
+        gsap.to(heroImg, {
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            },
+            y: 150,
+            ease: 'none'
+        });
+    }
+
+    // FAQ items (for services page)
     gsap.utils.toArray('.faq-item').forEach((el, i) => {
         gsap.from(el, {
             scrollTrigger: {
@@ -286,31 +436,80 @@ function initAnimations() {
                 start: 'top 90%',
                 toggleActions: 'play none none reverse'
             },
-            y: 30,
             opacity: 0,
+            y: 30,
             duration: 0.5,
             delay: i * 0.05,
             ease: 'power3.out'
         });
     });
 
-    // Parallax images
-    gsap.utils.toArray('.work-main img, .work-item img').forEach(img => {
-        gsap.to(img, {
+    // Value cards (for about page)
+    gsap.utils.toArray('.value-card').forEach((el, i) => {
+        gsap.from(el, {
             scrollTrigger: {
-                trigger: img.closest('.work-main, .work-item'),
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
             },
-            y: -30,
-            ease: 'none'
+            opacity: 0,
+            y: 50,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power3.out'
+        });
+    });
+
+    // Testimonial cards
+    gsap.utils.toArray('.testimonial-card').forEach((el, i) => {
+        gsap.from(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 50,
+            duration: 0.6,
+            delay: i * 0.1,
+            ease: 'power3.out'
         });
     });
 }
 
 /**
- * FAQ Accordion
+ * Magnetic Effect
+ */
+function initMagnetic() {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    document.querySelectorAll('.btn-primary, .btn-outline, .logo').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            gsap.to(el, {
+                x: x * 0.2,
+                y: y * 0.2,
+                duration: 0.4,
+                ease: 'power2.out'
+            });
+        });
+
+        el.addEventListener('mouseleave', () => {
+            gsap.to(el, {
+                x: 0,
+                y: 0,
+                duration: 0.6,
+                ease: 'elastic.out(1, 0.5)'
+            });
+        });
+    });
+}
+
+/**
+ * FAQ Accordion (for services page)
  */
 function initFAQ() {
     document.querySelectorAll('.faq-item').forEach(item => {
@@ -331,64 +530,10 @@ function initFAQ() {
     });
 }
 
-/**
- * Magnetic Elements
- */
-function initMagnetic() {
-    if (window.matchMedia('(pointer: coarse)').matches) return;
-
-    document.querySelectorAll('[data-magnetic]').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            gsap.to(el, {
-                x: x * 0.3,
-                y: y * 0.3,
-                duration: 0.3,
-                ease: 'power2.out'
-            });
-        });
-
-        el.addEventListener('mouseleave', () => {
-            gsap.to(el, {
-                x: 0,
-                y: 0,
-                duration: 0.5,
-                ease: 'elastic.out(1, 0.5)'
-            });
-        });
-    });
-}
-
-/**
- * Count Up Animation
- */
-function initCountUp() {
-    if (typeof ScrollTrigger === 'undefined') return;
-
-    document.querySelectorAll('[data-count]').forEach(counter => {
-        const target = parseInt(counter.dataset.count);
-
-        ScrollTrigger.create({
-            trigger: counter,
-            start: 'top 80%',
-            once: true,
-            onEnter: () => {
-                gsap.to(counter, {
-                    innerText: target,
-                    duration: 2,
-                    ease: 'power2.out',
-                    snap: { innerText: 1 },
-                    onUpdate: function() {
-                        counter.textContent = Math.round(this.targets()[0].innerText);
-                    }
-                });
-            }
-        });
-    });
-}
+// Initialize FAQ on page load
+document.addEventListener('DOMContentLoaded', () => {
+    initFAQ();
+});
 
 /**
  * Contact Form
@@ -410,7 +555,7 @@ function initContactForm() {
         if (btnText) btnText.textContent = 'Sending...';
         btn.disabled = true;
 
-        // Simulate submission (replace with actual endpoint or HoneyBook)
+        // Simulate submission
         await new Promise(resolve => setTimeout(resolve, 1500));
 
         // Success state
@@ -429,35 +574,7 @@ function initContactForm() {
     });
 }
 
-/**
- * HoneyBook Integration
- *
- * To enable HoneyBook:
- * 1. Get your company ID from HoneyBook
- * 2. Call initHoneyBook('YOUR_COMPANY_ID') below
- *
- * The function will:
- * - Hide the fallback form
- * - Inject the HoneyBook widget
- */
-function initHoneyBook(companyId) {
-    const container = document.getElementById('honeybook-form');
-    const fallbackForm = document.getElementById('contact-form');
-
-    if (!container || !companyId) return;
-
-    // Hide fallback form
-    if (fallbackForm) {
-        fallbackForm.style.display = 'none';
-    }
-
-    // Create HoneyBook widget
-    const script = document.createElement('script');
-    script.src = 'https://widget.honeybook.com/widget_embed.js';
-    script.setAttribute('data-companyId', companyId);
-    script.setAttribute('data-widgetType', 'contact_form');
-    container.appendChild(script);
-}
-
-// Uncomment and add your HoneyBook company ID:
-// initHoneyBook('YOUR_HONEYBOOK_COMPANY_ID');
+// Initialize contact form
+document.addEventListener('DOMContentLoaded', () => {
+    initContactForm();
+});

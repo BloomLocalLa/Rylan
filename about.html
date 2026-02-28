@@ -9,7 +9,7 @@
     <link rel="icon" type="image/webp" href="RPL+Entertainment+(3).webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -19,196 +19,232 @@
 </head>
 <body>
     <!-- Custom Cursor -->
-    <div class="cursor">
-        <div class="cursor-dot"></div>
-        <div class="cursor-outline"></div>
-        <div class="cursor-text">View</div>
+    <div class="cursor" id="cursor">
+        <div class="cursor-ball"></div>
+        <div class="cursor-text"></div>
     </div>
 
-    <!-- Grain Overlay -->
-    <div class="grain"></div>
+    <!-- Header -->
+    <header class="header scrolled" id="header">
+        <a href="index.html" class="logo">
+            <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
+        </a>
 
-    <!-- Navigation -->
-    <nav class="nav scrolled">
-        <div class="nav-inner">
-            <a href="index.html" class="nav-logo" data-magnetic>
-                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
-            </a>
-            <div class="nav-menu">
-                <a href="index.html" class="nav-link" data-magnetic><span>Home</span></a>
-                <a href="about.html" class="nav-link active" data-magnetic><span>About</span></a>
-                <a href="services.html" class="nav-link" data-magnetic><span>Services</span></a>
-                <a href="gallery.html" class="nav-link" data-magnetic><span>Gallery</span></a>
-                <a href="contact.html" class="nav-link nav-cta" data-magnetic>
-                    <span>Book Now</span>
-                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-            </div>
-            <button class="nav-toggle" data-magnetic aria-label="Menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+        <nav class="nav-main">
+            <a href="about.html" class="nav-link active">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="contact.html" class="nav-link cta">Book Now</a>
+        </nav>
+
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
 
     <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <div class="mobile-menu-inner">
-            <div class="mobile-menu-links">
-                <a href="index.html" class="mobile-link">Home</a>
-                <a href="about.html" class="mobile-link">About</a>
-                <a href="services.html" class="mobile-link">Services</a>
-                <a href="gallery.html" class="mobile-link">Gallery</a>
-                <a href="contact.html" class="mobile-link">Contact</a>
-            </div>
-            <div class="mobile-menu-footer">
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-bg"></div>
+        <nav class="mobile-nav">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <div class="mobile-menu-footer">
+            <div class="mobile-social">
                 <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
                 <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
             </div>
+            <span class="mobile-tagline">Est. 2020 • Georgia</span>
         </div>
     </div>
 
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <span class="section-label">About Us</span>
-            <h1 class="page-title">The DJ You Want<br>to Be Friends With</h1>
-        </div>
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <span class="section-tag">About Us</span>
+        <h1>The DJ You Want<br><em>To Be Friends With</em></h1>
     </section>
 
-    <!-- About Content -->
-    <section class="about-section">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-image-col">
-                    <div class="about-image-wrapper">
-                        <img src="IMG_5365-Enhanced-NR.webp" alt="RPL Entertainment DJ Setup">
-                    </div>
-                    <div class="about-badge">
-                        <img src="RPL+Entertainment+(3).webp" alt="RPL Logo">
-                    </div>
-                </div>
-                <div class="about-text-col">
-                    <h2>Our Story</h2>
-                    <p class="lead">
-                        Founded in 2020, RPL Entertainment was born from a simple belief: every celebration deserves to be extraordinary.
-                    </p>
-                    <p>
-                        We don't just play music—we architect moments, craft emotions, and transform spaces into unforgettable experiences. Based in Georgia, we've had the honor of being part of countless love stories and celebrations.
-                    </p>
-                    <p>
-                        What sets us apart? We take the time to understand your vision, your love story, and exactly how you want your celebration to feel. From the first dance to the last song, we craft an experience that reflects who you are.
-                    </p>
-                    <p>
-                        Your event isn't just another gig to us. It's a collaboration, a story we help you tell through sound.
-                    </p>
-                </div>
+    <!-- Story Section -->
+    <section class="about-preview" style="min-height: auto;">
+        <div class="about-images">
+            <div class="about-img about-img-1">
+                <img src="IMG_5365-Enhanced-NR.webp" alt="RPL Entertainment DJ Setup">
             </div>
+            <div class="about-img about-img-2">
+                <img src="event-1.jpg" alt="Event">
+            </div>
+            <div class="about-logo-float">
+                <img src="RPL+Entertainment+(3).webp" alt="RPL">
+            </div>
+        </div>
+        <div class="about-content">
+            <span class="section-tag">Our Story</span>
+            <h2 class="section-title">More Than Just Music</h2>
+            <p class="about-lead">
+                RPL Entertainment was born from a simple belief: your wedding day should have a soundtrack as unique as your love story.
+            </p>
+            <p>
+                Since 2020, we've been dedicated to creating unforgettable moments across Georgia. We understand that every couple, every venue, and every celebration is different—and that's exactly what excites us.
+            </p>
+            <p>
+                We don't just show up and press play. We take time to understand your vision, your must-play songs, your "definitely not" list, and everything in between.
+            </p>
         </div>
     </section>
 
     <!-- Values Section -->
-    <section class="values-section">
-        <div class="container">
-            <div class="section-header centered">
-                <span class="section-label">Our Values</span>
-                <h2 class="section-title">What We Stand For</h2>
+    <section class="services">
+        <div class="services-header">
+            <div>
+                <span class="section-tag">What Drives Us</span>
+                <h2 class="section-title-large">Our Values</h2>
             </div>
+        </div>
 
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-number">01</div>
-                    <h3>Professionalism</h3>
-                    <p>We arrive early, stay prepared, and handle every detail with precision. Your event runs smoothly because we've anticipated everything.</p>
+        <div class="services-grid" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="service-card">
+                <div class="service-num">01</div>
+                <h3>Personal Touch</h3>
+                <p>Every event gets our full attention. We learn your story and create a personalized experience that reflects who you are.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-num">02</div>
+                <h3>Professional Excellence</h3>
+                <p>Premium equipment, meticulous planning, and flawless execution. We handle the details so you can enjoy the moment.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-num">03</div>
+                <h3>Reading the Room</h3>
+                <p>Music is about energy. We know exactly when to slow things down and when to get everyone on their feet.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-num">04</div>
+                <h3>Genuine Connection</h3>
+                <p>We're not just vendors—we're partners in creating your perfect day. Your success is our success.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Testimonial -->
+    <section class="testimonial">
+        <div class="testimonial-bg">
+            <img src="hero-party.jpg" alt="">
+            <div class="testimonial-overlay"></div>
+        </div>
+        <div class="testimonial-content">
+            <div class="hero-stats" style="position: relative; top: 0; right: 0; transform: none; flex-direction: row; gap: 4rem; margin-bottom: 3rem;">
+                <div class="stat">
+                    <span class="stat-num">150+</span>
+                    <span class="stat-label">Events</span>
                 </div>
-                <div class="value-card">
-                    <div class="value-number">02</div>
-                    <h3>Connection</h3>
-                    <p>We're not just vendors—we're partners in your celebration. We listen, collaborate, and build genuine relationships with our clients.</p>
+                <div class="stat">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-label">Satisfaction</span>
                 </div>
-                <div class="value-card">
-                    <div class="value-number">03</div>
-                    <h3>Excellence</h3>
-                    <p>Premium equipment, curated playlists, and flawless execution. We hold ourselves to the highest standards in everything we do.</p>
+                <div class="stat">
+                    <span class="stat-num">5</span>
+                    <span class="stat-label">Years</span>
                 </div>
-                <div class="value-card">
-                    <div class="value-number">04</div>
-                    <h3>Passion</h3>
-                    <p>We love what we do, and it shows. The energy we bring to your event comes from genuine excitement about creating unforgettable moments.</p>
+                <div class="stat">
+                    <span class="stat-num">5.0</span>
+                    <span class="stat-label">Rating</span>
+                </div>
+            </div>
+            <div class="testimonial-icon">"</div>
+            <blockquote>
+                We don't just play music—we architect moments, craft emotions, and transform spaces into unforgettable experiences.
+            </blockquote>
+            <div class="testimonial-author">
+                <div class="author-avatar">R</div>
+                <div class="author-info">
+                    <strong>RPL Entertainment</strong>
+                    <span>Est. 2020 • Georgia</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number" data-count="150">0</span>
-                    <span class="stat-label">Events Hosted</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number" data-count="100">0</span>
-                    <span class="stat-label">Happy Couples</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">5.0</span>
-                    <span class="stat-label">Star Rating</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number" data-count="5">0</span>
-                    <span class="stat-label">Years Experience</span>
-                </div>
+    <!-- Equipment Section -->
+    <section class="about-preview" style="min-height: auto;">
+        <div class="about-content" style="order: -1;">
+            <span class="section-tag">Professional Setup</span>
+            <h2 class="section-title">Premium Equipment</h2>
+            <p class="about-lead">
+                We invest in top-tier sound and lighting equipment to ensure your event sounds incredible and looks stunning.
+            </p>
+            <p>Our setup includes professional-grade speaker systems, intelligent LED lighting, wireless microphones, uplighting packages, and backup equipment for reliability.</p>
+            <p>We believe the technical foundation of your event should be invisible—you shouldn't have to think about it, just enjoy it.</p>
+            <a href="services.html" class="link-with-arrow">
+                <span>View our services</span>
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+        <div class="about-images">
+            <div class="about-img about-img-1" style="width: 70%; top: 20%; left: 15%;">
+                <img src="IMG_5365-Enhanced-NR.webp" alt="Professional DJ Equipment">
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <div class="container">
+        <div class="cta-inner">
             <div class="cta-content">
-                <h2>Ready to Work Together?</h2>
-                <p>Let's create something unforgettable for your special day.</p>
-                <a href="contact.html" class="btn-primary btn-large" data-magnetic>
-                    <span class="btn-text">Get in Touch</span>
-                    <span class="btn-icon">
-                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </span>
+                <h2>Ready to Start <em>Planning?</em></h2>
+                <p>Let's discuss your vision and see if we're the right fit for your special day.</p>
+                <a href="contact.html" class="btn-primary light">
+                    <span class="btn-fill"></span>
+                    <span class="btn-label">Get in Touch</span>
                 </a>
+            </div>
+            <div class="cta-logo">
+                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
-                    <p>Professionally Curated Events</p>
-                    <p class="footer-tagline">Est. 2020 • Georgia</p>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
                 </div>
-                <div class="footer-links">
-                    <div class="footer-col">
-                        <h4>Navigate</h4>
-                        <a href="index.html">Home</a>
-                        <a href="about.html">About</a>
-                        <a href="services.html">Services</a>
-                        <a href="gallery.html">Gallery</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                    <div class="footer-col">
-                        <h4>Connect</h4>
-                        <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
-                        <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
-                    </div>
+                <p class="footer-tagline">Professionally Curated Events</p>
+                <span class="footer-est">Est. 2020 • Georgia</span>
+            </div>
+
+            <div class="footer-nav">
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="services.html">Services</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Connect</h4>
+                    <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                    <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="services.html">Wedding DJ</a>
+                    <a href="services.html">Premium Package</a>
+                    <a href="services.html">Event DJ</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <span>&copy; 2025 RPL Entertainment. All rights reserved.</span>
-                <span>Georgia's Premier Wedding DJ</span>
-            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2025 RPL Entertainment. All rights reserved.</span>
+            <span>Georgia's Premier Wedding DJ</span>
         </div>
     </footer>
 
