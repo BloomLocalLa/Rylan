@@ -1,373 +1,549 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-scroll-container>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RPL Entertainment - Georgia's premier wedding DJ. Making you the life of the party at your own wedding and events.">
-    <meta name="keywords" content="wedding DJ, Georgia DJ, event DJ, party DJ, RPL Entertainment">
-    <title>RPL Entertainment | Georgia Wedding DJ</title>
+    <meta name="description" content="RPL Entertainment - Georgia's premier wedding DJ. Immersive sound experiences for unforgettable celebrations.">
+    <title>RPL Entertainment | Experience Sound</title>
+
+    <!-- Preload critical assets -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <!-- Three.js for 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
-    <!-- HoneyBook Embed Script - Add your HoneyBook company ID -->
+
+    <!-- HoneyBook -->
     <script src="https://widget.honeybook.com/assets/embed.js" defer></script>
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+        <div class="cursor-text">View</div>
+    </div>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-logo">RPL</div>
+            <div class="preloader-bar">
+                <div class="preloader-progress"></div>
+            </div>
+            <div class="preloader-text">
+                <span class="preloader-counter">0</span>%
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Visualizer Background -->
+    <canvas id="visualizer"></canvas>
+
+    <!-- Grain Overlay -->
+    <div class="grain"></div>
+
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment Logo" class="logo-img">
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" data-magnetic>
+                <img src="RPL+Entertainment+(3).webp" alt="RPL">
             </a>
-            <button class="nav-toggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
+            <div class="nav-menu">
+                <a href="#work" class="nav-link" data-magnetic><span>Work</span></a>
+                <a href="#about" class="nav-link" data-magnetic><span>About</span></a>
+                <a href="#services" class="nav-link" data-magnetic><span>Services</span></a>
+                <a href="#contact" class="nav-link nav-cta" data-magnetic>
+                    <span>Book Now</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <button class="nav-toggle" data-magnetic aria-label="Menu">
+                <span></span>
+                <span></span>
             </button>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#gallery" class="nav-link">Past Events</a></li>
-                <li><a href="#testimonials" class="nav-link">Reviews</a></li>
-                <li><a href="#contact" class="nav-link cta-btn">Book Now</a></li>
-            </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Making You the Life of the Party</h1>
-            <p class="hero-subtitle">At Your Own Wedding & Events</p>
-            <p class="hero-tagline">The DJ You Want to Be Friends With</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Request a Quote</a>
-                <a href="#services" class="btn btn-secondary">Our Services</a>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-inner">
+            <div class="mobile-menu-links">
+                <a href="#work" class="mobile-link" data-splitting>Work</a>
+                <a href="#about" class="mobile-link" data-splitting>About</a>
+                <a href="#services" class="mobile-link" data-splitting>Services</a>
+                <a href="#contact" class="mobile-link" data-splitting>Contact</a>
+            </div>
+            <div class="mobile-menu-footer">
+                <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <span>Scroll</span>
-            <div class="scroll-arrow"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="hero-gradient"></div>
+            <div class="hero-particles" id="particles"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-label">
+                <div class="hero-label-line"></div>
+                <span>Georgia's Premier DJ Experience</span>
+            </div>
+
+            <h1 class="hero-title">
+                <div class="title-line">
+                    <span class="title-word" data-splitting>We</span>
+                    <span class="title-word" data-splitting>Create</span>
+                </div>
+                <div class="title-line">
+                    <span class="title-word title-outline" data-splitting>Sonic</span>
+                    <span class="title-word" data-splitting>Memories</span>
+                </div>
+            </h1>
+
+            <p class="hero-description">
+                Transforming your most important moments into unforgettable sound experiences
+            </p>
+
+            <div class="hero-cta">
+                <a href="#contact" class="btn-primary" data-magnetic>
+                    <span class="btn-text">Start Your Journey</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </a>
+                <a href="#work" class="btn-secondary" data-magnetic>
+                    <span class="btn-circle"></span>
+                    <span class="btn-text">View Our Work</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <div class="scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-line">
+                    <div class="scroll-dot"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-number" data-count="150">0</span>
+                <span class="stat-label">Events</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="100">0</span>
+                <span class="stat-label">Happy Couples</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">5.0</span>
+                <span class="stat-label">Rating</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <section class="marquee-section">
+        <div class="marquee" data-speed="1">
+            <div class="marquee-inner">
+                <span>Weddings</span>
+                <span class="marquee-dot"></span>
+                <span>Corporate</span>
+                <span class="marquee-dot"></span>
+                <span>Private Events</span>
+                <span class="marquee-dot"></span>
+                <span>Celebrations</span>
+                <span class="marquee-dot"></span>
+                <span>Weddings</span>
+                <span class="marquee-dot"></span>
+                <span>Corporate</span>
+                <span class="marquee-dot"></span>
+                <span>Private Events</span>
+                <span class="marquee-dot"></span>
+                <span>Celebrations</span>
+                <span class="marquee-dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work/Gallery Section -->
+    <section class="work" id="work">
+        <div class="section-header">
+            <span class="section-label">Selected Work</span>
+            <h2 class="section-title" data-splitting>
+                Moments We've<br>Brought to Life
+            </h2>
+        </div>
+
+        <div class="work-grid">
+            <div class="work-item" data-cursor-text="View">
+                <div class="work-image">
+                    <img src="IMG_5365-Enhanced-NR.webp" alt="Wedding Event">
+                    <div class="work-overlay"></div>
+                </div>
+                <div class="work-info">
+                    <span class="work-category">Wedding</span>
+                    <h3 class="work-title">Atlanta Botanical Garden</h3>
+                    <span class="work-date">2024</span>
+                </div>
+            </div>
+
+            <div class="work-item" data-cursor-text="View">
+                <div class="work-image placeholder">
+                    <div class="placeholder-content">
+                        <span>Your Event</span>
+                        <span>Here</span>
+                    </div>
+                    <div class="work-overlay"></div>
+                </div>
+                <div class="work-info">
+                    <span class="work-category">Reception</span>
+                    <h3 class="work-title">Savannah Historic</h3>
+                    <span class="work-date">2024</span>
+                </div>
+            </div>
+
+            <div class="work-item large" data-cursor-text="View">
+                <div class="work-image placeholder">
+                    <div class="placeholder-content">
+                        <span>Premium</span>
+                        <span>Experience</span>
+                    </div>
+                    <div class="work-overlay"></div>
+                </div>
+                <div class="work-info">
+                    <span class="work-category">Corporate</span>
+                    <h3 class="work-title">Tech Summit Atlanta</h3>
+                    <span class="work-date">2024</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="work-cta">
+            <a href="https://instagram.com/rplentertainment" class="link-underline" target="_blank" data-magnetic>
+                <span>See more on Instagram</span>
+                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+            </a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-image">
-                    <img src="IMG_5365-Enhanced-NR.webp" alt="RPL Entertainment DJ Setup">
+    <section class="about" id="about">
+        <div class="about-content">
+            <div class="about-left">
+                <span class="section-label">About</span>
+                <h2 class="about-title" data-splitting>
+                    The DJ You Want<br>to Be Friends With
+                </h2>
+            </div>
+            <div class="about-right">
+                <p class="about-text large">
+                    We don't just play music. We architect moments, craft emotions, and transform spaces into unforgettable experiences.
+                </p>
+                <p class="about-text">
+                    Based in Georgia, RPL Entertainment brings a fresh perspective to wedding and event entertainment. We blend technical precision with intuitive reading of the room, ensuring every beat lands perfectly.
+                </p>
+                <p class="about-text">
+                    Your event isn't just another gig to us. It's a collaboration, a story we help you tell through sound.
+                </p>
+                <div class="about-signature">
+                    <span>RPL Entertainment</span>
+                    <span class="signature-line"></span>
                 </div>
-                <div class="about-content">
-                    <span class="section-label">About Us</span>
-                    <h2>More Than Just a DJ</h2>
-                    <p class="lead">At RPL Entertainment, we believe your wedding day should be unforgettable. That's why we go beyond just playing music.</p>
-                    <p>We take the time to understand your vision, your love story, and exactly how you want your celebration to feel. From the first dance to the last song, we craft an experience that reflects who you are as a couple.</p>
-                    <p>Based in Georgia, we've had the honor of being part of countless love stories, bringing energy, professionalism, and a personal touch to every event we host.</p>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">100+</span>
-                            <span class="stat-label">Events</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">5</span>
-                            <span class="stat-label">Star Reviews</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">GA</span>
-                            <span class="stat-label">Based</span>
-                        </div>
-                    </div>
-                </div>
+            </div>
+        </div>
+
+        <div class="about-image">
+            <div class="image-reveal">
+                <img src="IMG_5365-Enhanced-NR.webp" alt="RPL Entertainment Setup">
+            </div>
+            <div class="image-caption">
+                <span>Creating magic since 2020</span>
             </div>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">What We Offer</span>
-                <h2>Give Us a Space, We Give You a Party</h2>
-                <p>Comprehensive entertainment packages tailored to your special day</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 18V5l12-2v13"></path>
-                            <circle cx="6" cy="18" r="3"></circle>
-                            <circle cx="18" cy="16" r="3"></circle>
-                        </svg>
-                    </div>
-                    <h3>Wedding DJ Services</h3>
-                    <p>Full ceremony and reception coverage with custom playlists, seamless transitions, and professional MC services.</p>
-                    <ul class="service-features">
-                        <li>Ceremony music</li>
-                        <li>Cocktail hour</li>
-                        <li>Reception entertainment</li>
-                        <li>Custom song requests</li>
-                    </ul>
-                </div>
-                <div class="service-card featured">
-                    <div class="featured-badge">Most Popular</div>
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                    </div>
-                    <h3>Premium Package</h3>
-                    <p>Everything you need for the perfect celebration, including lighting, sound, and personalized planning sessions.</p>
-                    <ul class="service-features">
-                        <li>Full DJ services</li>
-                        <li>Professional lighting</li>
-                        <li>Premium sound system</li>
-                        <li>Planning consultation</li>
-                    </ul>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                        </svg>
-                    </div>
-                    <h3>Event DJ</h3>
-                    <p>Corporate events, private parties, and special occasions. We bring the same energy and professionalism to every event.</p>
-                    <ul class="service-features">
-                        <li>Corporate events</li>
-                        <li>Birthday parties</li>
-                        <li>Anniversaries</li>
-                        <li>Holiday parties</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="services-cta">
-                <a href="#contact" class="btn btn-primary">Get Your Custom Quote</a>
-            </div>
+    <section class="services" id="services">
+        <div class="section-header">
+            <span class="section-label">Services</span>
+            <h2 class="section-title" data-splitting>
+                What We<br>Bring to You
+            </h2>
         </div>
-    </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Past Events</span>
-                <h2>Memories We've Helped Create</h2>
-                <p>A glimpse into the celebrations we've been honored to be part of</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item large">
-                    <img src="IMG_5365-Enhanced-NR.webp" alt="Wedding Event">
-                    <div class="gallery-overlay">
-                        <span>Wedding Reception</span>
-                    </div>
+        <div class="services-list">
+            <div class="service-item" data-cursor-text="01">
+                <div class="service-number">01</div>
+                <div class="service-content">
+                    <h3 class="service-title">Wedding DJ</h3>
+                    <p class="service-desc">Complete ceremony to reception coverage. Custom playlists, seamless transitions, professional MC services.</p>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <span>Your Event Here</span>
-                    </div>
+                <div class="service-features">
+                    <span>Ceremony</span>
+                    <span>Cocktail Hour</span>
+                    <span>Reception</span>
+                    <span>After Party</span>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <span>Your Event Here</span>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-placeholder">
-                        <span>Your Event Here</span>
-                    </div>
+                <div class="service-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </div>
             </div>
-            <div class="gallery-social">
-                <p>See more on our socials</p>
-                <div class="social-links">
-                    <a href="https://instagram.com/rplentertainment" target="_blank" rel="noopener" class="social-link instagram">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                        @rplentertainment
-                    </a>
+
+            <div class="service-item" data-cursor-text="02">
+                <div class="service-number">02</div>
+                <div class="service-content">
+                    <h3 class="service-title">Premium Package</h3>
+                    <p class="service-desc">The complete experience. Premium sound, intelligent lighting, uplighting, and dedicated planning sessions.</p>
+                </div>
+                <div class="service-features">
+                    <span>Full DJ Services</span>
+                    <span>Premium Audio</span>
+                    <span>Dynamic Lighting</span>
+                    <span>Consultation</span>
+                </div>
+                <div class="service-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </div>
+
+            <div class="service-item" data-cursor-text="03">
+                <div class="service-number">03</div>
+                <div class="service-content">
+                    <h3 class="service-title">Event DJ</h3>
+                    <p class="service-desc">Corporate events, galas, and private celebrations. Same energy, same professionalism, tailored approach.</p>
+                </div>
+                <div class="service-features">
+                    <span>Corporate</span>
+                    <span>Private Parties</span>
+                    <span>Galas</span>
+                    <span>Celebrations</span>
+                </div>
+                <div class="service-arrow">
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Reviews</span>
-                <h2>What Couples Are Saying</h2>
+    <section class="testimonials">
+        <div class="testimonials-bg">
+            <div class="testimonials-gradient"></div>
+        </div>
+
+        <div class="section-header light">
+            <span class="section-label">Testimonials</span>
+            <h2 class="section-title" data-splitting>
+                Words from<br>Our Couples
+            </h2>
+        </div>
+
+        <div class="testimonials-slider">
+            <div class="testimonial active">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">
+                    RPL Entertainment exceeded every expectation. The dance floor was packed all night, and our guests are still talking about it months later. They didn't just play music—they created an experience.
+                </p>
+                <div class="testimonial-author">
+                    <span class="author-name">Sarah & Michael</span>
+                    <span class="author-info">Atlanta Wedding, 2024</span>
+                </div>
             </div>
-            <div class="testimonials-slider">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    </div>
-                    <p class="testimonial-text">"RPL Entertainment made our wedding absolutely incredible! From the ceremony to the last dance, everything was perfect. They truly understood our vision and brought it to life."</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">Sarah & Michael</span>
-                        <span class="author-event">Wedding - Atlanta, GA</span>
-                    </div>
+
+            <div class="testimonial">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">
+                    From our first consultation, we knew we were in good hands. The attention to detail, the energy, the seamless flow—everything was perfect. They truly understood our vision.
+                </p>
+                <div class="testimonial-author">
+                    <span class="author-name">Jessica & David</span>
+                    <span class="author-info">Savannah Wedding, 2024</span>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                    </div>
-                    <p class="testimonial-text">"The dance floor was packed all night! Our guests are still talking about how amazing the music was. Highly recommend for any event!"</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">Jessica & David</span>
-                        <span class="author-event">Wedding - Savannah, GA</span>
-                    </div>
+            </div>
+
+            <div class="testimonial">
+                <div class="testimonial-quote">"</div>
+                <p class="testimonial-text">
+                    Professional, friendly, and incredibly talented. They made us feel like friends, not just clients. The lighting and sound transformed our venue completely.
+                </p>
+                <div class="testimonial-author">
+                    <span class="author-name">Emily & James</span>
+                    <span class="author-info">Augusta Wedding, 2024</span>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+        </div>
+
+        <div class="testimonials-nav">
+            <button class="testimonial-prev" data-magnetic aria-label="Previous">
+                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            </button>
+            <div class="testimonial-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+            <button class="testimonial-next" data-magnetic aria-label="Next">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="section-header">
+            <span class="section-label">FAQ</span>
+            <h2 class="section-title" data-splitting>
+                Common<br>Questions
+            </h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>What areas do you serve?</span>
+                    <div class="faq-icon">
+                        <span></span>
+                        <span></span>
                     </div>
-                    <p class="testimonial-text">"Professional, friendly, and so easy to work with. They handled everything seamlessly and made us feel like friends, not just clients."</p>
-                    <div class="testimonial-author">
-                        <span class="author-name">Emily & James</span>
-                        <span class="author-event">Wedding - Augusta, GA</span>
+                </button>
+                <div class="faq-content">
+                    <p>We're based in Georgia and serve the entire state—Atlanta, Savannah, Augusta, and beyond. We're also available for destination events. Let's talk about your location.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>How far in advance should I book?</span>
+                    <div class="faq-icon">
+                        <span></span>
+                        <span></span>
                     </div>
+                </button>
+                <div class="faq-content">
+                    <p>We recommend 6-12 months for weddings, especially for peak season dates. However, we can sometimes accommodate shorter timelines. Reach out and let's see what's possible.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>Do you take song requests?</span>
+                    <div class="faq-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="faq-content">
+                    <p>Absolutely. We collaborate with you to build a custom playlist that tells your story. During the event, we also take guest requests to keep everyone on the floor.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-trigger">
+                    <span>What equipment do you use?</span>
+                    <div class="faq-icon">
+                        <span></span>
+                        <span></span>
+                    </div>
+                </button>
+                <div class="faq-content">
+                    <p>Professional-grade sound systems and intelligent lighting. We scale our setup to match your venue—from intimate gatherings to grand ballrooms. Always crisp, always clear.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <span class="section-label">Get In Touch</span>
-                    <h2>Let's Plan Your Perfect Day</h2>
-                    <p>Ready to make your event unforgettable? Fill out the form and we'll get back to you within 24 hours to discuss your vision.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            <span>Serving all of Georgia</span>
-                        </div>
-                        <div class="contact-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                            <a href="https://instagram.com/rplentertainment" target="_blank" rel="noopener">@rplentertainment</a>
-                        </div>
+    <section class="contact" id="contact">
+        <div class="contact-inner">
+            <div class="contact-left">
+                <span class="section-label">Let's Connect</span>
+                <h2 class="contact-title" data-splitting>
+                    Ready to Create<br>Something<br>Unforgettable?
+                </h2>
+                <p class="contact-text">
+                    Tell us about your vision. We'll be in touch within 24 hours.
+                </p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <span class="contact-label">Location</span>
+                        <span class="contact-value">Georgia, USA</span>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-label">Social</span>
+                        <a href="https://instagram.com/rplentertainment" class="contact-value link" target="_blank">@rplentertainment</a>
                     </div>
                 </div>
-                <div class="contact-form-wrapper">
-                    <!-- HoneyBook Contact Form Embed -->
-                    <!-- Option 1: Embedded HoneyBook Form (Recommended) -->
-                    <div id="honeybook-form" class="honeybook-embed">
-                        <!--
-                        To add your HoneyBook form:
-                        1. Log into HoneyBook
-                        2. Go to Tools > Contact Forms
-                        3. Create or select a form
-                        4. Click "Embed" and copy the code
-                        5. Paste the embed code below
+            </div>
 
-                        Example embed code format:
-                        <script src="https://widget.honeybook.com/widget_embed.js"
-                                data-companyId="YOUR_COMPANY_ID"
-                                data-widgetType="contact_form">
-                        </script>
-                        -->
-
-                        <!-- Fallback form while HoneyBook is being set up -->
-                        <form class="contact-form" id="fallback-contact-form">
+            <div class="contact-right">
+                <!-- HoneyBook Form Container -->
+                <div class="contact-form-wrapper" id="honeybook-form">
+                    <!-- HoneyBook embed will go here -->
+                    <!-- Fallback form -->
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
                             <div class="form-group">
+                                <input type="text" id="name" name="name" required placeholder=" ">
                                 <label for="name">Your Name</label>
-                                <input type="text" id="name" name="name" required>
+                                <div class="form-line"></div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email Address</label>
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" id="email" name="email" required placeholder=" ">
+                                <label for="email">Email</label>
+                                <div class="form-line"></div>
                             </div>
+                        </div>
+
+                        <div class="form-row">
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="tel" id="phone" name="phone">
-                            </div>
-                            <div class="form-group">
+                                <input type="date" id="event-date" name="event-date" placeholder=" ">
                                 <label for="event-date">Event Date</label>
-                                <input type="date" id="event-date" name="event-date">
+                                <div class="form-line"></div>
                             </div>
                             <div class="form-group">
-                                <label for="event-type">Event Type</label>
-                                <select id="event-type" name="event-type">
-                                    <option value="">Select event type</option>
+                                <select id="event-type" name="event-type" required>
+                                    <option value="" disabled selected></option>
                                     <option value="wedding">Wedding</option>
-                                    <option value="corporate">Corporate Event</option>
-                                    <option value="party">Private Party</option>
+                                    <option value="corporate">Corporate</option>
+                                    <option value="private">Private Event</option>
                                     <option value="other">Other</option>
                                 </select>
+                                <label for="event-type">Event Type</label>
+                                <div class="form-line"></div>
                             </div>
-                            <div class="form-group full-width">
-                                <label for="message">Tell Us About Your Event</label>
-                                <textarea id="message" name="message" rows="4" placeholder="Share your vision with us..."></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-full">Send Message</button>
-                        </form>
-                    </div>
+                        </div>
 
-                    <!-- Option 2: HoneyBook Button (Alternative) -->
-                    <!--
-                    <a href="https://www.honeybook.com/widget/YOUR_COMPANY_ID/contact"
-                       class="btn btn-primary btn-full honeybook-button"
-                       target="_blank">
-                        Request a Quote
-                    </a>
-                    -->
-                </div>
-            </div>
-        </div>
-    </section>
+                        <div class="form-group full">
+                            <textarea id="message" name="message" rows="4" placeholder=" "></textarea>
+                            <label for="message">Tell us about your event</label>
+                            <div class="form-line"></div>
+                        </div>
 
-    <!-- FAQ Section -->
-    <section class="faq">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">FAQ</span>
-                <h2>Common Questions</h2>
-            </div>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h3>What areas do you serve?</h3>
-                    <p>We're based in Georgia and serve the entire state, including Atlanta, Savannah, Augusta, and surrounding areas. We're also available for destination events.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>How far in advance should I book?</h3>
-                    <p>We recommend booking 6-12 months in advance for weddings, especially for peak season dates. However, we can sometimes accommodate last-minute bookings.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Do you take song requests?</h3>
-                    <p>Absolutely! We work with you to create a custom playlist and also take requests from guests during the event to keep everyone dancing.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>What equipment do you use?</h3>
-                    <p>We use professional-grade sound systems and lighting equipment. Our setup is tailored to your venue size and event needs.</p>
+                        <button type="submit" class="btn-submit" data-magnetic>
+                            <span class="btn-text">Send Message</span>
+                            <span class="btn-icon">
+                                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </span>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -375,43 +551,29 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
-                    <p>The DJ You Want to Be Friends With</p>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
+                <p>The DJ You Want to Be Friends With</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <a href="#work">Work</a>
+                    <a href="#about">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#gallery">Past Events</a></li>
-                        <li><a href="#contact">Book Now</a></li>
-                    </ul>
-                </div>
-                <div class="footer-social">
-                    <h4>Follow Us</h4>
-                    <div class="social-icons">
-                        <a href="https://instagram.com/rplentertainment" target="_blank" rel="noopener" aria-label="Instagram">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                            </svg>
-                        </a>
-                        <a href="https://facebook.com/rplentertainment" target="_blank" rel="noopener" aria-label="Facebook">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                            </svg>
-                        </a>
-                    </div>
+                <div class="footer-col">
+                    <h4>Social</h4>
+                    <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                    <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 RPL Entertainment. All rights reserved.</p>
-                <p>Georgia's Premier Wedding DJ</p>
-            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2025 RPL Entertainment</span>
+            <span>Georgia's Premier DJ</span>
         </div>
     </footer>
 
