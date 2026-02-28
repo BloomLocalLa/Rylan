@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RPL Entertainment Gallery - See our past events, weddings, and celebrations across Georgia.">
+    <title>Gallery | RPL Entertainment</title>
+
+    <link rel="icon" type="image/webp" href="RPL+Entertainment+(3).webp">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor">
+        <div class="cursor-dot"></div>
+        <div class="cursor-outline"></div>
+        <div class="cursor-text">View</div>
+    </div>
+
+    <!-- Grain Overlay -->
+    <div class="grain"></div>
+
+    <!-- Navigation -->
+    <nav class="nav scrolled">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-logo" data-magnetic>
+                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
+            </a>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link" data-magnetic><span>Home</span></a>
+                <a href="about.html" class="nav-link" data-magnetic><span>About</span></a>
+                <a href="services.html" class="nav-link" data-magnetic><span>Services</span></a>
+                <a href="gallery.html" class="nav-link active" data-magnetic><span>Gallery</span></a>
+                <a href="contact.html" class="nav-link nav-cta" data-magnetic>
+                    <span>Book Now</span>
+                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            <button class="nav-toggle" data-magnetic aria-label="Menu">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-inner">
+            <div class="mobile-menu-links">
+                <a href="index.html" class="mobile-link">Home</a>
+                <a href="about.html" class="mobile-link">About</a>
+                <a href="services.html" class="mobile-link">Services</a>
+                <a href="gallery.html" class="mobile-link">Gallery</a>
+                <a href="contact.html" class="mobile-link">Contact</a>
+            </div>
+            <div class="mobile-menu-footer">
+                <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <span class="section-label">Our Work</span>
+            <h1 class="page-title">Moments We've<br>Brought to Life</h1>
+        </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-section">
+        <div class="container">
+            <div class="gallery-grid">
+                <div class="gallery-item large" data-cursor-text="View">
+                    <img src="hero-party.jpg" alt="Wedding celebration">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Wedding</span>
+                        <h3>Atlanta Botanical Garden</h3>
+                        <span class="gallery-date">2024</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-cursor-text="View">
+                    <img src="event-1.jpg" alt="Reception event">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Reception</span>
+                        <h3>Savannah Historic</h3>
+                        <span class="gallery-date">2024</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-cursor-text="View">
+                    <img src="event-2.jpg" alt="Corporate gala">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Corporate</span>
+                        <h3>Tech Summit</h3>
+                        <span class="gallery-date">2024</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-cursor-text="View">
+                    <img src="IMG_5365-Enhanced-NR.webp" alt="DJ Setup">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Setup</span>
+                        <h3>Premium Equipment</h3>
+                        <span class="gallery-date">2024</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item tall" data-cursor-text="View">
+                    <img src="hero-party.jpg" alt="Dance floor">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Wedding</span>
+                        <h3>Dance Floor Magic</h3>
+                        <span class="gallery-date">2024</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-cursor-text="View">
+                    <img src="event-1.jpg" alt="Lighting setup">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Lighting</span>
+                        <h3>Venue Transform</h3>
+                        <span class="gallery-date">2024</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item wide" data-cursor-text="View">
+                    <img src="event-2.jpg" alt="Full venue">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Wedding</span>
+                        <h3>Grand Celebration</h3>
+                        <span class="gallery-date">2023</span>
+                    </div>
+                </div>
+
+                <div class="gallery-item" data-cursor-text="View">
+                    <img src="IMG_5365-Enhanced-NR.webp" alt="Sound check">
+                    <div class="gallery-overlay">
+                        <span class="gallery-category">Setup</span>
+                        <h3>Sound Check</h3>
+                        <span class="gallery-date">2023</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social CTA -->
+    <section class="social-cta">
+        <div class="container">
+            <div class="social-content">
+                <h2>See More of Our Work</h2>
+                <p>Follow us on Instagram for behind-the-scenes content and recent events.</p>
+                <a href="https://instagram.com/rplentertainment" class="btn-primary btn-large" target="_blank" data-magnetic>
+                    <span class="btn-text">Follow @rplentertainment</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title">What Couples Say</h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p>"RPL Entertainment exceeded every expectation. The dance floor was packed all night!"</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah & Michael</strong>
+                        <span>Atlanta, 2024</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p>"They truly understood our vision and brought it to life perfectly."</p>
+                    <div class="testimonial-author">
+                        <strong>Jessica & David</strong>
+                        <span>Savannah, 2024</span>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p>"Professional, friendly, and the lighting transformed our venue completely."</p>
+                    <div class="testimonial-author">
+                        <strong>Emily & James</strong>
+                        <span>Augusta, 2024</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Let's Create Your Story</h2>
+                <p>Your event could be our next masterpiece.</p>
+                <a href="contact.html" class="btn-primary btn-large" data-magnetic>
+                    <span class="btn-text">Book Your Date</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
+                    <p>Professionally Curated Events</p>
+                    <p class="footer-tagline">Est. 2020 • Georgia</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="services.html">Services</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Connect</h4>
+                        <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                        <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2025 RPL Entertainment. All rights reserved.</span>
+                <span>Georgia's Premier Wedding DJ</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

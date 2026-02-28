@@ -1,31 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" data-scroll-container>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="RPL Entertainment - Georgia's premier wedding DJ. Immersive sound experiences for unforgettable celebrations.">
-    <title>RPL Entertainment | Experience Sound</title>
+    <meta name="description" content="RPL Entertainment - Georgia's premier wedding DJ. Professionally curated events since 2020.">
+    <title>RPL Entertainment | Professionally Curated Events</title>
 
-    <!-- Preload critical assets -->
+    <link rel="icon" type="image/webp" href="RPL+Entertainment+(3).webp">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- GSAP & Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
-
-    <!-- Lenis Smooth Scroll -->
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
-    <!-- Three.js for 3D -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
     <link rel="stylesheet" href="style.css">
-
-    <!-- HoneyBook -->
-    <script src="https://widget.honeybook.com/assets/embed.js" defer></script>
 </head>
 <body>
     <!-- Custom Cursor -->
@@ -38,18 +28,12 @@
     <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-inner">
-            <div class="preloader-logo">RPL</div>
+            <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="preloader-logo-img">
             <div class="preloader-bar">
                 <div class="preloader-progress"></div>
             </div>
-            <div class="preloader-text">
-                <span class="preloader-counter">0</span>%
-            </div>
         </div>
     </div>
-
-    <!-- Audio Visualizer Background -->
-    <canvas id="visualizer"></canvas>
 
     <!-- Grain Overlay -->
     <div class="grain"></div>
@@ -57,14 +41,15 @@
     <!-- Navigation -->
     <nav class="nav">
         <div class="nav-inner">
-            <a href="#" class="nav-logo" data-magnetic>
-                <img src="RPL+Entertainment+(3).webp" alt="RPL">
+            <a href="index.html" class="nav-logo" data-magnetic>
+                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment">
             </a>
             <div class="nav-menu">
-                <a href="#work" class="nav-link" data-magnetic><span>Work</span></a>
-                <a href="#about" class="nav-link" data-magnetic><span>About</span></a>
-                <a href="#services" class="nav-link" data-magnetic><span>Services</span></a>
-                <a href="#contact" class="nav-link nav-cta" data-magnetic>
+                <a href="index.html" class="nav-link active" data-magnetic><span>Home</span></a>
+                <a href="about.html" class="nav-link" data-magnetic><span>About</span></a>
+                <a href="services.html" class="nav-link" data-magnetic><span>Services</span></a>
+                <a href="gallery.html" class="nav-link" data-magnetic><span>Gallery</span></a>
+                <a href="contact.html" class="nav-link nav-cta" data-magnetic>
                     <span>Book Now</span>
                     <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
@@ -80,10 +65,11 @@
     <div class="mobile-menu">
         <div class="mobile-menu-inner">
             <div class="mobile-menu-links">
-                <a href="#work" class="mobile-link" data-splitting>Work</a>
-                <a href="#about" class="mobile-link" data-splitting>About</a>
-                <a href="#services" class="mobile-link" data-splitting>Services</a>
-                <a href="#contact" class="mobile-link" data-splitting>Contact</a>
+                <a href="index.html" class="mobile-link">Home</a>
+                <a href="about.html" class="mobile-link">About</a>
+                <a href="services.html" class="mobile-link">Services</a>
+                <a href="gallery.html" class="mobile-link">Gallery</a>
+                <a href="contact.html" class="mobile-link">Contact</a>
             </div>
             <div class="mobile-menu-footer">
                 <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
@@ -95,39 +81,44 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-bg">
-            <div class="hero-gradient"></div>
-            <div class="hero-particles" id="particles"></div>
+            <img src="hero-party.jpg" alt="Party atmosphere" class="hero-bg-image">
+            <div class="hero-overlay"></div>
         </div>
 
         <div class="hero-content">
-            <div class="hero-label">
-                <div class="hero-label-line"></div>
-                <span>Georgia's Premier DJ Experience</span>
+            <div class="hero-badge">
+                <span>Est. 2020</span>
+                <div class="badge-stars">
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
             </div>
 
             <h1 class="hero-title">
-                <div class="title-line">
-                    <span class="title-word" data-splitting>We</span>
-                    <span class="title-word" data-splitting>Create</span>
-                </div>
-                <div class="title-line">
-                    <span class="title-word title-outline" data-splitting>Sonic</span>
-                    <span class="title-word" data-splitting>Memories</span>
-                </div>
+                <span class="title-line">
+                    <span class="title-word">Professionally</span>
+                </span>
+                <span class="title-line">
+                    <span class="title-word title-accent">Curated</span>
+                    <span class="title-word">Events</span>
+                </span>
             </h1>
 
             <p class="hero-description">
-                Transforming your most important moments into unforgettable sound experiences
+                Making you the life of the party at your own wedding and events. Georgia's premier DJ experience.
             </p>
 
             <div class="hero-cta">
-                <a href="#contact" class="btn-primary" data-magnetic>
-                    <span class="btn-text">Start Your Journey</span>
+                <a href="contact.html" class="btn-primary" data-magnetic>
+                    <span class="btn-text">Request a Quote</span>
                     <span class="btn-icon">
                         <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </span>
                 </a>
-                <a href="#work" class="btn-secondary" data-magnetic>
+                <a href="gallery.html" class="btn-secondary" data-magnetic>
                     <span class="btn-circle"></span>
                     <span class="btn-text">View Our Work</span>
                 </a>
@@ -142,438 +133,193 @@
                 </div>
             </div>
         </div>
+    </section>
 
-        <div class="hero-stats">
-            <div class="stat-item">
-                <span class="stat-number" data-count="150">0</span>
-                <span class="stat-label">Events</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-count="100">0</span>
-                <span class="stat-label">Happy Couples</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">5.0</span>
-                <span class="stat-label">Rating</span>
+    <!-- Intro Section -->
+    <section class="intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-left">
+                    <span class="section-label">The DJ You Want to Be Friends With</span>
+                    <h2 class="intro-title">Give Us a Space,<br>We Give You a Party</h2>
+                </div>
+                <div class="intro-right">
+                    <p class="intro-text">
+                        At RPL Entertainment, we believe your event should be unforgettable. That's why we go beyond just playing music—we craft experiences, read the room, and create moments that last a lifetime.
+                    </p>
+                    <a href="about.html" class="link-underline" data-magnetic>
+                        <span>Learn More About Us</span>
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Marquee -->
-    <section class="marquee-section">
-        <div class="marquee" data-speed="1">
-            <div class="marquee-inner">
-                <span>Weddings</span>
-                <span class="marquee-dot"></span>
-                <span>Corporate</span>
-                <span class="marquee-dot"></span>
-                <span>Private Events</span>
-                <span class="marquee-dot"></span>
-                <span>Celebrations</span>
-                <span class="marquee-dot"></span>
-                <span>Weddings</span>
-                <span class="marquee-dot"></span>
-                <span>Corporate</span>
-                <span class="marquee-dot"></span>
-                <span>Private Events</span>
-                <span class="marquee-dot"></span>
-                <span>Celebrations</span>
-                <span class="marquee-dot"></span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Work/Gallery Section -->
-    <section class="work" id="work">
-        <div class="section-header">
-            <span class="section-label">Selected Work</span>
-            <h2 class="section-title" data-splitting>
-                Moments We've<br>Brought to Life
-            </h2>
-        </div>
-
-        <div class="work-grid">
-            <div class="work-item" data-cursor-text="View">
-                <div class="work-image">
-                    <img src="IMG_5365-Enhanced-NR.webp" alt="Wedding Event">
-                    <div class="work-overlay"></div>
-                </div>
-                <div class="work-info">
-                    <span class="work-category">Wedding</span>
-                    <h3 class="work-title">Atlanta Botanical Garden</h3>
-                    <span class="work-date">2024</span>
-                </div>
+    <!-- Services Preview -->
+    <section class="services-preview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">What We Do</span>
+                <h2 class="section-title">Our Services</h2>
             </div>
 
-            <div class="work-item" data-cursor-text="View">
-                <div class="work-image placeholder">
-                    <div class="placeholder-content">
-                        <span>Your Event</span>
-                        <span>Here</span>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 18V5l12-2v13"/>
+                            <circle cx="6" cy="18" r="3"/>
+                            <circle cx="18" cy="16" r="3"/>
+                        </svg>
                     </div>
-                    <div class="work-overlay"></div>
+                    <h3>Wedding DJ</h3>
+                    <p>Complete ceremony to reception coverage with custom playlists and professional MC services.</p>
                 </div>
-                <div class="work-info">
-                    <span class="work-category">Reception</span>
-                    <h3 class="work-title">Savannah Historic</h3>
-                    <span class="work-date">2024</span>
-                </div>
-            </div>
 
-            <div class="work-item large" data-cursor-text="View">
-                <div class="work-image placeholder">
-                    <div class="placeholder-content">
-                        <span>Premium</span>
-                        <span>Experience</span>
+                <div class="service-card featured">
+                    <div class="service-badge">Most Popular</div>
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
                     </div>
-                    <div class="work-overlay"></div>
+                    <h3>Premium Package</h3>
+                    <p>The complete experience with premium sound, intelligent lighting, and dedicated planning sessions.</p>
                 </div>
-                <div class="work-info">
-                    <span class="work-category">Corporate</span>
-                    <h3 class="work-title">Tech Summit Atlanta</h3>
-                    <span class="work-date">2024</span>
-                </div>
-            </div>
-        </div>
 
-        <div class="work-cta">
-            <a href="https://instagram.com/rplentertainment" class="link-underline" target="_blank" data-magnetic>
-                <span>See more on Instagram</span>
-                <svg viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-            </a>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="about-content">
-            <div class="about-left">
-                <span class="section-label">About</span>
-                <h2 class="about-title" data-splitting>
-                    The DJ You Want<br>to Be Friends With
-                </h2>
-            </div>
-            <div class="about-right">
-                <p class="about-text large">
-                    We don't just play music. We architect moments, craft emotions, and transform spaces into unforgettable experiences.
-                </p>
-                <p class="about-text">
-                    Based in Georgia, RPL Entertainment brings a fresh perspective to wedding and event entertainment. We blend technical precision with intuitive reading of the room, ensuring every beat lands perfectly.
-                </p>
-                <p class="about-text">
-                    Your event isn't just another gig to us. It's a collaboration, a story we help you tell through sound.
-                </p>
-                <div class="about-signature">
-                    <span>RPL Entertainment</span>
-                    <span class="signature-line"></span>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21 15 16 10 5 21"/>
+                        </svg>
+                    </div>
+                    <h3>Event DJ</h3>
+                    <p>Corporate events, galas, and private celebrations with tailored entertainment solutions.</p>
                 </div>
             </div>
-        </div>
 
-        <div class="about-image">
-            <div class="image-reveal">
-                <img src="IMG_5365-Enhanced-NR.webp" alt="RPL Entertainment Setup">
-            </div>
-            <div class="image-caption">
-                <span>Creating magic since 2020</span>
+            <div class="services-cta">
+                <a href="services.html" class="btn-primary" data-magnetic>
+                    <span class="btn-text">View All Services</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="section-header">
-            <span class="section-label">Services</span>
-            <h2 class="section-title" data-splitting>
-                What We<br>Bring to You
-            </h2>
-        </div>
+    <!-- Featured Work -->
+    <section class="featured-work">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Work</span>
+                <h2 class="section-title">Recent Events</h2>
+            </div>
 
-        <div class="services-list">
-            <div class="service-item" data-cursor-text="01">
-                <div class="service-number">01</div>
-                <div class="service-content">
-                    <h3 class="service-title">Wedding DJ</h3>
-                    <p class="service-desc">Complete ceremony to reception coverage. Custom playlists, seamless transitions, professional MC services.</p>
+            <div class="work-showcase">
+                <div class="work-main" data-cursor-text="View">
+                    <img src="hero-party.jpg" alt="Wedding celebration">
+                    <div class="work-overlay">
+                        <span class="work-category">Wedding</span>
+                        <h3>Atlanta Celebration</h3>
+                    </div>
                 </div>
-                <div class="service-features">
-                    <span>Ceremony</span>
-                    <span>Cocktail Hour</span>
-                    <span>Reception</span>
-                    <span>After Party</span>
-                </div>
-                <div class="service-arrow">
-                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div class="work-side">
+                    <div class="work-item" data-cursor-text="View">
+                        <img src="event-1.jpg" alt="Event 1">
+                        <div class="work-overlay">
+                            <span class="work-category">Reception</span>
+                            <h3>Garden Party</h3>
+                        </div>
+                    </div>
+                    <div class="work-item" data-cursor-text="View">
+                        <img src="event-2.jpg" alt="Event 2">
+                        <div class="work-overlay">
+                            <span class="work-category">Corporate</span>
+                            <h3>Gala Night</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="service-item" data-cursor-text="02">
-                <div class="service-number">02</div>
-                <div class="service-content">
-                    <h3 class="service-title">Premium Package</h3>
-                    <p class="service-desc">The complete experience. Premium sound, intelligent lighting, uplighting, and dedicated planning sessions.</p>
-                </div>
-                <div class="service-features">
-                    <span>Full DJ Services</span>
-                    <span>Premium Audio</span>
-                    <span>Dynamic Lighting</span>
-                    <span>Consultation</span>
-                </div>
-                <div class="service-arrow">
+            <div class="work-cta">
+                <a href="gallery.html" class="link-underline" data-magnetic>
+                    <span>View Full Gallery</span>
                     <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
-            </div>
-
-            <div class="service-item" data-cursor-text="03">
-                <div class="service-number">03</div>
-                <div class="service-content">
-                    <h3 class="service-title">Event DJ</h3>
-                    <p class="service-desc">Corporate events, galas, and private celebrations. Same energy, same professionalism, tailored approach.</p>
-                </div>
-                <div class="service-features">
-                    <span>Corporate</span>
-                    <span>Private Parties</span>
-                    <span>Galas</span>
-                    <span>Celebrations</span>
-                </div>
-                <div class="service-arrow">
-                    <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="testimonials">
-        <div class="testimonials-bg">
-            <div class="testimonials-gradient"></div>
+    <!-- Testimonial Highlight -->
+    <section class="testimonial-highlight">
+        <div class="testimonial-bg">
+            <img src="event-1.jpg" alt="Background">
+            <div class="testimonial-overlay"></div>
         </div>
-
-        <div class="section-header light">
-            <span class="section-label">Testimonials</span>
-            <h2 class="section-title" data-splitting>
-                Words from<br>Our Couples
-            </h2>
-        </div>
-
-        <div class="testimonials-slider">
-            <div class="testimonial active">
+        <div class="container">
+            <div class="testimonial-content">
                 <div class="testimonial-quote">"</div>
                 <p class="testimonial-text">
-                    RPL Entertainment exceeded every expectation. The dance floor was packed all night, and our guests are still talking about it months later. They didn't just play music—they created an experience.
+                    RPL Entertainment exceeded every expectation. The dance floor was packed all night, and our guests are still talking about it. They didn't just play music—they created an unforgettable experience.
                 </p>
                 <div class="testimonial-author">
                     <span class="author-name">Sarah & Michael</span>
                     <span class="author-info">Atlanta Wedding, 2024</span>
                 </div>
             </div>
-
-            <div class="testimonial">
-                <div class="testimonial-quote">"</div>
-                <p class="testimonial-text">
-                    From our first consultation, we knew we were in good hands. The attention to detail, the energy, the seamless flow—everything was perfect. They truly understood our vision.
-                </p>
-                <div class="testimonial-author">
-                    <span class="author-name">Jessica & David</span>
-                    <span class="author-info">Savannah Wedding, 2024</span>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <div class="testimonial-quote">"</div>
-                <p class="testimonial-text">
-                    Professional, friendly, and incredibly talented. They made us feel like friends, not just clients. The lighting and sound transformed our venue completely.
-                </p>
-                <div class="testimonial-author">
-                    <span class="author-name">Emily & James</span>
-                    <span class="author-info">Augusta Wedding, 2024</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="testimonials-nav">
-            <button class="testimonial-prev" data-magnetic aria-label="Previous">
-                <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            </button>
-            <div class="testimonial-dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-            </div>
-            <button class="testimonial-next" data-magnetic aria-label="Next">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="faq">
-        <div class="section-header">
-            <span class="section-label">FAQ</span>
-            <h2 class="section-title" data-splitting>
-                Common<br>Questions
-            </h2>
-        </div>
-
-        <div class="faq-list">
-            <div class="faq-item">
-                <button class="faq-trigger">
-                    <span>What areas do you serve?</span>
-                    <div class="faq-icon">
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="faq-content">
-                    <p>We're based in Georgia and serve the entire state—Atlanta, Savannah, Augusta, and beyond. We're also available for destination events. Let's talk about your location.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-trigger">
-                    <span>How far in advance should I book?</span>
-                    <div class="faq-icon">
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="faq-content">
-                    <p>We recommend 6-12 months for weddings, especially for peak season dates. However, we can sometimes accommodate shorter timelines. Reach out and let's see what's possible.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-trigger">
-                    <span>Do you take song requests?</span>
-                    <div class="faq-icon">
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="faq-content">
-                    <p>Absolutely. We collaborate with you to build a custom playlist that tells your story. During the event, we also take guest requests to keep everyone on the floor.</p>
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-trigger">
-                    <span>What equipment do you use?</span>
-                    <div class="faq-icon">
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="faq-content">
-                    <p>Professional-grade sound systems and intelligent lighting. We scale our setup to match your venue—from intimate gatherings to grand ballrooms. Always crisp, always clear.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="contact-inner">
-            <div class="contact-left">
-                <span class="section-label">Let's Connect</span>
-                <h2 class="contact-title" data-splitting>
-                    Ready to Create<br>Something<br>Unforgettable?
-                </h2>
-                <p class="contact-text">
-                    Tell us about your vision. We'll be in touch within 24 hours.
-                </p>
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <span class="contact-label">Location</span>
-                        <span class="contact-value">Georgia, USA</span>
-                    </div>
-                    <div class="contact-item">
-                        <span class="contact-label">Social</span>
-                        <a href="https://instagram.com/rplentertainment" class="contact-value link" target="_blank">@rplentertainment</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-right">
-                <!-- HoneyBook Form Container -->
-                <div class="contact-form-wrapper" id="honeybook-form">
-                    <!-- HoneyBook embed will go here -->
-                    <!-- Fallback form -->
-                    <form class="contact-form" id="contact-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" required placeholder=" ">
-                                <label for="name">Your Name</label>
-                                <div class="form-line"></div>
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" required placeholder=" ">
-                                <label for="email">Email</label>
-                                <div class="form-line"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <input type="date" id="event-date" name="event-date" placeholder=" ">
-                                <label for="event-date">Event Date</label>
-                                <div class="form-line"></div>
-                            </div>
-                            <div class="form-group">
-                                <select id="event-type" name="event-type" required>
-                                    <option value="" disabled selected></option>
-                                    <option value="wedding">Wedding</option>
-                                    <option value="corporate">Corporate</option>
-                                    <option value="private">Private Event</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <label for="event-type">Event Type</label>
-                                <div class="form-line"></div>
-                            </div>
-                        </div>
-
-                        <div class="form-group full">
-                            <textarea id="message" name="message" rows="4" placeholder=" "></textarea>
-                            <label for="message">Tell us about your event</label>
-                            <div class="form-line"></div>
-                        </div>
-
-                        <button type="submit" class="btn-submit" data-magnetic>
-                            <span class="btn-text">Send Message</span>
-                            <span class="btn-icon">
-                                <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                            </span>
-                        </button>
-                    </form>
-                </div>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Create Something Unforgettable?</h2>
+                <p>Let's discuss your vision and make it a reality.</p>
+                <a href="contact.html" class="btn-primary btn-large" data-magnetic>
+                    <span class="btn-text">Get in Touch</span>
+                    <span class="btn-icon">
+                        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-top">
-            <div class="footer-brand">
-                <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
-                <p>The DJ You Want to Be Friends With</p>
-            </div>
-            <div class="footer-links">
-                <div class="footer-col">
-                    <h4>Navigate</h4>
-                    <a href="#work">Work</a>
-                    <a href="#about">About</a>
-                    <a href="#services">Services</a>
-                    <a href="#contact">Contact</a>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="RPL+Entertainment+(3).webp" alt="RPL Entertainment" class="footer-logo">
+                    <p>Professionally Curated Events</p>
+                    <p class="footer-tagline">Est. 2020 • Georgia</p>
                 </div>
-                <div class="footer-col">
-                    <h4>Social</h4>
-                    <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
-                    <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Navigate</h4>
+                        <a href="index.html">Home</a>
+                        <a href="about.html">About</a>
+                        <a href="services.html">Services</a>
+                        <a href="gallery.html">Gallery</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Connect</h4>
+                        <a href="https://instagram.com/rplentertainment" target="_blank">Instagram</a>
+                        <a href="https://facebook.com/rplentertainment" target="_blank">Facebook</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; 2025 RPL Entertainment</span>
-            <span>Georgia's Premier DJ</span>
+            <div class="footer-bottom">
+                <span>&copy; 2025 RPL Entertainment. All rights reserved.</span>
+                <span>Georgia's Premier Wedding DJ</span>
+            </div>
         </div>
     </footer>
 
